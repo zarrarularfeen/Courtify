@@ -1,0 +1,207 @@
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 100%;
+}
+
+.brand {
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links li {
+  color: #d1d5db;
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.nav-links li:hover {
+  color: white;
+}
+
+.navbar {
+  overflow: visible !important;
+}
+
+/* Nav right container */
+.nav-right {
+  display: flex;
+  align-items: center;   /* vertically center everything */
+  gap: 16px;             /* space between items */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Nav links inside nav-right */
+.nav-right li {
+  cursor: pointer;
+  font-size: 16px;
+  color: #d1d5db;
+  transition: color 0.2s;
+}
+
+.nav-right li:hover {
+  color: white;
+}
+
+/* Separator */
+.separator {
+  font-size: 18px;
+  color: #dce4e3;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+}
+
+/* Login button */
+.login-btn {
+  padding: 8px 20px;
+  background-color: #1f2937; /* dark background */
+  color: #f9fafb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+.login-btn:hover {
+  background-color: #374151;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  position: relative;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.user-info:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.user-info span {
+  color: white;
+}
+
+/* User icon */
+.user-icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+/* User name */
+.user-name {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  min-width: 160px;
+  z-index: 9999;
+  overflow: hidden;
+  animation: dropdownSlide 0.2s ease-out;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Arrow pointer */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 20px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-menu button {
+  width: 100%;
+  padding: 12px 18px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-menu button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.dropdown-menu button:hover {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  color: #166534;
+}
+
+.dropdown-menu button:active {
+  background: #dcfce7;
+}
