@@ -1,0 +1,34 @@
+$kind: http-request
+name: 'TC-LOG-004 — Non-Existent Email'
+method: POST
+url: '{{base_url}}/auth/login'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "ghost@notexist.com",
+      "password": "Pass@1234"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-LOG-004: Login with non-existent email returns 401 Unauthorized
+      pm.test("TC-LOG-004: Status is 401 Unauthorized", function () {
+          pm.response.to.have.status(401);
+      });
+
+      pm.test("TC-LOG-004: Error message present", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("message");
+          pm.expect(json.error || json.message).to.be.a("string").and.not.empty;
+      });
+
+      pm.test("TC-LOG-004: No token returned for non-existent user", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.not.have.property("token");
+      });

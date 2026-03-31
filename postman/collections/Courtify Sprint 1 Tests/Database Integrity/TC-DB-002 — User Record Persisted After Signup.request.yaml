@@ -1,0 +1,31 @@
+$kind: http-request
+name: 'TC-DB-002 — User Record Persisted After Signup'
+method: GET
+url: '{{base_url}}/auth/user'
+order: 2000
+headers:
+  - key: Authorization
+    value: 'Bearer {{player_token}}'
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      const token = pm.collectionVariables.get("player_token");
+      if (!token || token.trim() === "") {
+          pm.execution.skipRequest();
+          console.warn("TC-DB-002: Skipped — player_token not set. Run Login tests first.");
+      }
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-DB-002: Status is 200 (User Record Persisted After Signup)", () => pm.response.to.have.status(200));
+      pm.test("TC-DB-002: User record exists in DB", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("email");
+          pm.expect(json.email).to.be.a("string").and.not.empty;
+      });
+      pm.test("TC-DB-002: Password is not returned in plain text", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.not.include("Pass@1234");
+          pm.expect(body).to.not.include("password_hash");
+      });

@@ -1,0 +1,42 @@
+$kind: http-request
+name: 'TC-DB-003 — Arena Linked to Owner in DB'
+method: GET
+url: '{{base_url}}/owner/arenas'
+order: 3000
+headers:
+  - key: Authorization
+    value: 'Bearer {{owner_token}}'
+scripts:
+  - type: prerequest
+    language: text/javascript
+    code: |-
+      // DB-003 Pre-request: Login as owner to get a fresh token (order-safe)
+      pm.sendRequest({
+          url: pm.collectionVariables.get('base_url') + '/auth/login',
+          method: 'POST',
+          header: { 'Content-Type': 'application/json' },
+          body: {
+              mode: 'raw',
+              raw: JSON.stringify({ email: 'owner@test.com', password: 'Pass@1234' })
+          }
+      }, function(err, res) {
+          if (!err && res.code === 200) {
+              pm.collectionVariables.set('owner_token', res.json().token);
+          }
+      });
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-DB-003: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-DB-003: Arenas are linked to the owner", () => {
+          const json = pm.response.json();
+          const arenas = Array.isArray(json) ? json : json.arenas || [];
+          arenas.forEach(arena => {
+              pm.expect(arena).to.have.property("owner_id");
+          });
+      });
+      pm.test("TC-DB-003: Response is an array or contains arenas array", () => {
+          const json = pm.response.json();
+          pm.expect(Array.isArray(json) || Array.isArray(json.arenas)).to.be.true;
+      });
+

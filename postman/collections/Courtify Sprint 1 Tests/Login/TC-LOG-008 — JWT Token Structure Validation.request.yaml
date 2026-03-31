@@ -1,0 +1,50 @@
+$kind: http-request
+name: 'TC-LOG-008 — JWT Token Structure Validation'
+method: POST
+url: '{{base_url}}/auth/login'
+order: 8000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "player@test.com",
+      "password": "Pass@1234"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-LOG-008: JWT token has valid structure (header.payload.signature)
+      pm.test("TC-LOG-008: Status is 200 OK", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("TC-LOG-008: Token has valid JWT structure (3 parts separated by dots)", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("token");
+          const parts = json.token.split(".");
+          pm.expect(parts).to.have.lengthOf(3, "JWT must have exactly 3 parts: header.payload.signature");
+      });
+
+      pm.test("TC-LOG-008: JWT payload contains userId", function () {
+          const json = pm.response.json();
+          const payloadBase64 = json.token.split(".")[1];
+          // Decode base64url
+          const padding = "=".repeat((4 - payloadBase64.length % 4) % 4);
+          const base64 = payloadBase64.replace(/-/g, "+").replace(/_/g, "/") + padding;
+          const payload = JSON.parse(atob(base64));
+          pm.expect(payload).to.have.property("userId");
+          console.log("TC-LOG-008: JWT payload:", JSON.stringify(payload));
+      });
+
+      pm.test("TC-LOG-008: JWT payload contains userType", function () {
+          const json = pm.response.json();
+          const payloadBase64 = json.token.split(".")[1];
+          const padding = "=".repeat((4 - payloadBase64.length % 4) % 4);
+          const base64 = payloadBase64.replace(/-/g, "+").replace(/_/g, "/") + padding;
+          const payload = JSON.parse(atob(base64));
+          pm.expect(payload).to.have.property("userType");
+      });

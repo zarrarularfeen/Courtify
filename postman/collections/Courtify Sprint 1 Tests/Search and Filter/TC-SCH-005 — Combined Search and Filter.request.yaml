@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'TC-SCH-005 — Combined Search and Filter'
+method: GET
+url: '{{base_url}}/arenas'
+order: 5000
+queryParams:
+  - key: search
+    value: Arena
+  - key: sport
+    value: cricket
+  - key: location
+    value: Lahore
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-SCH-005: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-SCH-005: Response is an array", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("array");
+      });

@@ -1,0 +1,112 @@
+[
+  {
+    "email": "marksman_admin@example.com",
+    "is_active": 1,
+    "verification_token": null
+  },
+  {
+    "email": "titan_admin@example.com",
+    "is_active": 1,
+    "verification_token": null
+  },
+  {
+    "email": "shaheertariq841@gmail.com",
+    "is_active": 0,
+    "verification_token": "ed34896108d293c31b482b8d3b011fc6b51d610f4f303a087ee0e639b7236c41"
+  },
+  {
+    "email": "newowner@test.com",
+    "is_active": 0,
+    "verification_token": "3829533f7f996869eae96431645c582e082a67c56af53377fde3c7eee2c16721"
+  },
+  {
+    "email": "owner@test.com",
+    "is_active": 1,
+    "verification_token": null
+  },
+  {
+    "email": "newowner_1774942623@test.com",
+    "is_active": 0,
+    "verification_token": "17f43950fa5026f8efca913e6a9243b5df371dc4b948d76f4768092872cd84d9"
+  },
+  {
+    "email": "newowner_1774942626@test.com",
+    "is_active": 0,
+    "verification_token": "c143d2fe18e38314e9522db9ea409107f859224f79c967b24b4c8fb1e7009ac0"
+  },
+  {
+    "email": "newowner_1774942885@test.com",
+    "is_active": 0,
+    "verification_token": "9323f54d4003f35781f99b2a64211ac1d309d73a597b23629bc5c2e01fa622b7"
+  },
+  {
+    "email": "newowner_1774942888@test.com",
+    "is_active": 0,
+    "verification_token": "955afeb1524ab6de246d679b5a24f74624d532af156c0bc8b3eaef3bd8be6acd"
+  },
+  {
+    "email": "newowner_1774943196@test.com",
+    "is_active": 0,
+    "verification_token": "d20445175c6fa48d5469f3d776514a79236626b9d7aab9213ee210a6f406040d"
+  },
+  {
+    "email": "newowner_1774943203@test.com",
+    "is_active": 0,
+    "verification_token": "29d1550d20fc514aa8b0c92c732f5a421dec1ced1be695ec3a66654abe6de50f"
+  },
+  {
+    "email": "unverifiedowner@example.com",
+    "is_active": 0,
+    "verification_token": "{{verification_token}}"
+  },
+  {
+    "email": "newowner_1774943816@test.com",
+    "is_active": 0,
+    "verification_token": "31227f60fd4bbcca2f3980710ca7c92be5e7fc6e16aaf30308357c232567b391"
+  },
+  {
+    "email": "newowner_1774943824@test.com",
+    "is_active": 0,
+    "verification_token": "77e6bc479fd6aca20cb070cfd42eb0d0ae5d13a28b6585f2c38452e529ae5c52"
+  },
+  {
+    "email": "newowner_1774948042@test.com",
+    "is_active": 0,
+    "verification_token": "03665ab896f3f18af9e1e5a29dd1fb11a32573af9f45f032960f8132d96a9e68"
+  },
+  {
+    "email": "newowner_1774948044@test.com",
+    "is_active": 0,
+    "verification_token": "5a93cd8d6352d96ffb4f20a634f672785f016099ff4ceedea805c94ca711e8d2"
+  },
+  {
+    "email": "newowner_1774948788@test.com",
+    "is_active": 0,
+    "verification_token": "a5427a20f5c3fd3a7c2a3383ae639f9ea36a727d9afad8c0afd86b7e0901d4e5"
+  },
+  {
+    "email": "newowner_1774948791@test.com",
+    "is_active": 0,
+    "verification_token": "b92f5fdbc86c9fb5196c6fce5c9802b0e5cfcd0bd568515bd6796317cdb46194"
+  },
+  {
+    "email": "newowner_1774949203@test.com",
+    "is_active": 0,
+    "verification_token": "4577da67ff5840a6359335401fcc570b29d16a5f366464481a945d593569e1bc"
+  },
+  {
+    "email": "newowner_1774949206@test.com",
+    "is_active": 0,
+    "verification_token": "794919bc59428f816b81bf668d228bc826ddcb8f3ae837ba1470fca5e51cb511"
+  },
+  {
+    "email": "newowner_1774949433@test.com",
+    "is_active": 0,
+    "verification_token": "3fc4f4c859a8e2c838431ee8bd2d6bce21977cdd57668eb46931e803ad8af056"
+  },
+  {
+    "email": "newowner_1774949435@test.com",
+    "is_active": 0,
+    "verification_token": "1f9df4a280091ce4085c8854a816722ca0876c3fc797675fc12288b21128b37b"
+  }
+]

@@ -1,0 +1,27 @@
+$kind: http-request
+name: 'TC-OWN-002 — Missing Arena Name'
+method: POST
+url: '{{base_url}}/arenas'
+order: 2000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{owner_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "location": "Lahore",
+      "sports": ["cricket"],
+      "pricePerHour": 1500
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-OWN-002: Status is 400", () => pm.response.to.have.status(400));
+      pm.test("TC-OWN-002: Response contains missing name error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/name.*required|missing.*name/i);
+      });

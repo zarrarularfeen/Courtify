@@ -1,0 +1,50 @@
+$kind: http-request
+name: 'TC-DB-001 — Duplicate Email Rejected at DB Level'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Duplicate User",
+      "email": "player@test.com",
+      "password": "Password123",
+      "userType": "player"
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      // Ensure player@test.com exists before testing duplicate rejection.
+      // We attempt a signup first; if it succeeds (201) or already exists (409), we proceed.
+      const baseUrl = pm.collectionVariables.get("base_url") || pm.environment.get("base_url") || pm.globals.get("base_url");
+      pm.sendRequest({
+          url: baseUrl + "/auth/signup",
+          method: "POST",
+          header: { "Content-Type": "application/json" },
+          body: {
+              mode: "raw",
+              raw: JSON.stringify({
+                  name: "Test Player",
+                  email: "player@test.com",
+                  password: "Password123",
+                  userType: "player"
+              })
+          }
+      }, function(err, res) {
+          console.log("TC-DB-001 pre-request: Seeded player@test.com, status:", res ? res.code : err);
+      });
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-DB-001: Status is 400 or 409 for duplicate email", () => {
+          pm.expect(pm.response.code).to.be.oneOf([400, 409]);
+      });
+      pm.test("TC-DB-001: Response contains duplicate/already exists error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/already.*exists|duplicate|email.*taken/i);
+      });

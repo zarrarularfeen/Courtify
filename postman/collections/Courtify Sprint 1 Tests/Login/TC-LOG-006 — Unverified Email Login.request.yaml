@@ -1,0 +1,25 @@
+$kind: http-request
+name: 'TC-LOG-006 — Unverified Email Login'
+method: POST
+url: '{{base_url}}/auth/login'
+order: 6000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "unverified_login@example.com",
+      "password": "Pass@1234",
+      "userType": "player"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LOG-006: Status is 403", () => pm.response.to.have.status(403));
+      pm.test("TC-LOG-006: Response indicates email not verified", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/not.*verified|verify.*email|email.*not.*confirmed/i);
+      });

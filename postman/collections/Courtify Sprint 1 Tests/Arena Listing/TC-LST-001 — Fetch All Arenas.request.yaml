@@ -1,0 +1,30 @@
+$kind: http-request
+name: 'TC-LST-001 — Fetch All Arenas'
+method: GET
+url: '{{base_url}}/arenas'
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-LST-001: GET /arenas returns 200 with array of arenas
+      pm.test("TC-LST-001: Status is 200 OK", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("TC-LST-001: Response is an array", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("array");
+      });
+
+      pm.test("TC-LST-001: Array contains at least one arena", function () {
+          const json = pm.response.json();
+          pm.expect(json.length).to.be.greaterThan(0);
+      });
+
+      // Save count for reference
+      if (pm.response.code === 200) {
+          const json = pm.response.json();
+          pm.collectionVariables.set("arena_count", json.length.toString());
+          console.log("TC-LST-001: Total arenas fetched:", json.length);
+      }

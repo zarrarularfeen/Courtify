@@ -1,0 +1,32 @@
+$kind: http-request
+name: 'TC-REG-002 — Valid Owner Signup'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 2000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Sara Malik",
+      "email": "newowner_{{$timestamp}}@test.com",
+      "phone": "03009876543",
+      "password": "Owner@5678",
+      "userType": "owner"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-REG-002: Status is 201 Created", function () {
+          pm.response.to.have.status(201);
+      });
+      pm.test("TC-REG-002: Response contains success message", function () {
+          const json = pm.response.json();
+          pm.expect(json.error || json.message).to.include("Account created");
+      });
+      pm.test("TC-REG-002: Response body is JSON", function () {
+          pm.response.to.be.json;
+      });

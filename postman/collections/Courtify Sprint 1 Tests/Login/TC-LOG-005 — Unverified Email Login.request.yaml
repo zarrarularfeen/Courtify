@@ -1,0 +1,38 @@
+$kind: http-request
+name: 'TC-LOG-005 — Unverified Email Login'
+method: POST
+url: '{{base_url}}/auth/login'
+order: 5000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "unverified@test.com",
+      "password": "Pass@1234"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-LOG-005: Login with unverified email returns 403 Forbidden
+      // Pre-condition: Register a user but do NOT verify their email
+      pm.test("TC-LOG-005: Status is 403 Forbidden", function () {
+          pm.response.to.have.status(403);
+      });
+
+      pm.test("TC-LOG-005: Error message mentions email verification", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("message");
+          const msg = json.message.toLowerCase();
+          pm.expect(msg).to.satisfy(function(m) {
+              return m.includes("verify") || m.includes("verified") || m.includes("email");
+          }, "Expected message about email verification requirement");
+      });
+
+      pm.test("TC-LOG-005: No token returned for unverified user", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.not.have.property("token");
+      });

@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'TC-SCH-002 — Filter by Sport Type'
+method: GET
+url: '{{base_url}}/arenas'
+order: 2000
+queryParams:
+  - key: sport
+    value: football
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-SCH-002: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-SCH-002: All results match sport filter", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("array");
+          json.forEach(arena => {
+              const sports = (arena.sports || []).map(s => s.toLowerCase());
+              pm.expect(sports).to.include("football");
+          });
+      });

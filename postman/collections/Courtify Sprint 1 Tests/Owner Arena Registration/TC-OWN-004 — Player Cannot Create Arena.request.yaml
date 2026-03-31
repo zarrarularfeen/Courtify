@@ -1,0 +1,28 @@
+$kind: http-request
+name: 'TC-OWN-004 — Player Cannot Create Arena'
+method: POST
+url: '{{base_url}}/arenas'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{player_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "name": "Player Arena Attempt",
+      "location": "Lahore",
+      "sports": ["cricket"],
+      "pricePerHour": 1500
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-OWN-004: Status is 403", () => pm.response.to.have.status(403));
+      pm.test("TC-OWN-004: Response contains forbidden/role error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/forbidden|not.*owner|role.*required|access.*denied/i);
+      });

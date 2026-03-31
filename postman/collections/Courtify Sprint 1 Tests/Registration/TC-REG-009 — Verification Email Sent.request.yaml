@@ -1,0 +1,26 @@
+$kind: http-request
+name: 'TC-REG-009 — Verification Email Sent'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 9000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Email Verify User",
+      "email": "emailverify_{{$timestamp}}@example.com",
+      "password": "12345678",
+      "userType": "player"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-REG-009: Status is 201", () => pm.response.to.have.status(201));
+      pm.test("TC-REG-009: Response indicates verification email sent", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/verification.*sent|email.*sent|check.*email/i);
+      });

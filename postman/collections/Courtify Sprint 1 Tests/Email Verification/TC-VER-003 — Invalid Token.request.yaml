@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'TC-VER-003 — Invalid Token'
+method: GET
+url: '{{base_url}}/auth/verify'
+order: 3000
+queryParams:
+  - key: token
+    value: invalidtoken123
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-VER-003: Verification fails with invalid token
+      pm.test("TC-VER-003: Status is 400 Bad Request", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("TC-VER-003: Error message indicates invalid or expired token", function () {
+          const json = pm.response.json();
+          pm.expect(json.message.toLowerCase()).to.include("invalid");
+      });

@@ -1,0 +1,27 @@
+$kind: http-request
+name: 'TC-REG-008 — Invalid userType'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 8000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "x_{{$timestamp}}@test.com",
+      "password": "Pass@1234",
+      "userType": "admin"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-REG-008: Status is 400 Bad Request", function () {
+          pm.response.to.have.status(400);
+      });
+      pm.test("TC-REG-008: Error message indicates invalid user type", function () {
+          const json = pm.response.json();
+          pm.expect(json.error || json.message).to.include("Invalid user type");
+      });

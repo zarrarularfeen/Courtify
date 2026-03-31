@@ -1,0 +1,18 @@
+$kind: http-request
+name: 'TC-VER-004 — Missing Token Param'
+method: GET
+url: '{{base_url}}/auth/verify'
+order: 4000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-VER-004: Verification fails when token parameter is absent
+      pm.test("TC-VER-004: Status is 400 Bad Request", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("TC-VER-004: Error message indicates invalid verification link", function () {
+          const json = pm.response.json();
+          pm.expect(json.message.toLowerCase()).to.include("invalid");
+      });

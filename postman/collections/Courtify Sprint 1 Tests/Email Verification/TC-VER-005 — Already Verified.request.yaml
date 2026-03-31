@@ -1,0 +1,19 @@
+$kind: http-request
+name: 'TC-VER-005 — Already Verified'
+method: GET
+url: '{{base_url}}/auth/verify-email'
+order: 5000
+queryParams:
+  - key: token
+    value: already_used_token
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-VER-005: Status is 400 or 409", () => {
+          pm.expect(pm.response.code).to.be.oneOf([400, 409]);
+      });
+      pm.test("TC-VER-005: Response indicates already verified", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/already.*verified|already.*confirmed|email.*already/i);
+      });

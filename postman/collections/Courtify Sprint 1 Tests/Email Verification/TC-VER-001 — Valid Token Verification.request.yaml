@@ -1,0 +1,17 @@
+$kind: http-request
+name: 'TC-VER-001 — Valid Token Verification'
+method: GET
+url: '{{base_url}}/auth/verify-email'
+order: 1000
+queryParams:
+  - key: token
+    value: valid_token_here
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-VER-001: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-VER-001: Response confirms email verified", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/verified|success|confirmed/i);
+      });

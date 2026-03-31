@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'TC-RTE-001 — Protected Route Without Token'
+method: GET
+url: '{{base_url}}/player/dashboard'
+order: 1000
+description: 'TC-RTE-001: Verifies that accessing a protected player route without a token returns 401 Unauthorized.'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-RTE-001: Status is 401", () => pm.response.to.have.status(401));
+      pm.test("TC-RTE-001: Response contains unauthorized error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/unauthorized|not.*authenticated|token.*required/i);
+      });

@@ -1,0 +1,33 @@
+$kind: http-request
+name: 'TC-LOG-006 — Missing Email Field'
+method: POST
+url: '{{base_url}}/auth/login'
+order: 6000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "password": "Pass@1234"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-LOG-006: Login with missing email field returns 400 Bad Request
+      pm.test("TC-LOG-006: Status is 400 Bad Request", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("TC-LOG-006: Error message indicates missing email", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("message");
+          pm.expect(json.error || json.message).to.be.a("string").and.not.empty;
+      });
+
+      pm.test("TC-LOG-006: No token returned on validation error", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.not.have.property("token");
+      });

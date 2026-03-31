@@ -1,6 +1,13 @@
 /* ==========================================================
    Lookup Tables
-   ========================================================== */
+   ========================================================== 
+CREATE DATABASE IF NOT EXISTS courtify;
+USE courtify;
+
+CREATE DATABASE IF NOT EXISTS courtify_db;
+*/
+
+
 
 CREATE TABLE IF NOT EXISTS court_types (
   id INT AUTO_INCREMENT PRIMARY KEY,

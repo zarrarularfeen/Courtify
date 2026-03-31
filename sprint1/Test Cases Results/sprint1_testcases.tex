@@ -1,0 +1,758 @@
+\documentclass[12pt,a4paper]{article}
+
+% ─── Packages ───────────────────────────────────────────────────────────────
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% ─── Colors ─────────────────────────────────────────────────────────────────
+\definecolor{headerbg}{RGB}{31,73,125}
+\definecolor{headertext}{RGB}{255,255,255}
+\definecolor{rowgray}{RGB}{242,242,242}
+\definecolor{passgreen}{RGB}{0,128,0}
+\definecolor{failred}{RGB}{192,0,0}
+\definecolor{sectionblue}{RGB}{31,73,125}
+
+% ─── Hyperref Setup ──────────────────────────────────────────────────────────
+\hypersetup{
+    colorlinks=true,
+    linkcolor=sectionblue,
+    urlcolor=sectionblue,
+    pdftitle={Courtify Sprint 1 Test Cases},
+    pdfauthor={Shaheer, Yousuf, Zarrar, Wasiq}
+}
+
+% ─── Section Formatting ──────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{sectionblue}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{sectionblue}}{}{0em}{}
+
+% ─── Header / Footer ─────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small Courtify -- Sprint 1 Test Cases}
+\lhead{\small Version 1.0}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ─── Custom TC Table Command ─────────────────────────────────────────────────
+% Usage: \tctable{ID}{Module}{Title}{Priority}{Preconditions}{Steps}{Data}{Expected}{Actual}{Status}{Comments}
+\newcommand{\tctable}[8]{%
+\noindent
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.5cm} X}
+\rowcolor{headerbg}\multicolumn{2}{l}{\color{white}\bfseries #1} \\
+Test Case ID    & #1 \\
+\rowcolor{rowgray}
+Module          & #2 \\
+Title           & #3 \\
+\rowcolor{rowgray}
+Priority        & #4 \\
+Pre-conditions  & #5 \\
+\rowcolor{rowgray}
+Test Steps      & #6 \\
+Test Data       & #7 \\
+\rowcolor{rowgray}
+Expected Result & #8 \\
+\end{tabularx}
+}
+
+% ─── Full TC Table (with actual+status+comments) ─────────────────────────────
+\newenvironment{tcblock}[1]{%
+  \subsection*{#1}%
+  \renewcommand{\arraystretch}{1.35}%
+  \begin{tabularx}{\textwidth}{>{\bfseries\small}p{3.7cm} >{\small}X}%
+  \rowcolor{headerbg}\multicolumn{2}{l}{\color{white}\bfseries\small #1}\\%
+}{%
+  \end{tabularx}\vspace{0.6em}%
+}
+
+% ─── Shorthand for a TC row ───────────────────────────────────────────────────
+\newcommand{\tcrow}[2]{\noindent #1 & #2 \\}
+\newcommand{\tcrowg}[2]{\rowcolor{rowgray} #1 & #2 \\}
+
+% ─── Pass / Fail colored badge ───────────────────────────────────────────────
+\newcommand{\pass}{\textcolor{passgreen}{\textbf{Pass}}}
+\newcommand{\fail}{\textcolor{failred}{\textbf{Fail}}}
+
+% ─── Reusable TC environment ─────────────────────────────────────────────────
+\newcommand{\testcase}[9]{%
+% #1 ID  #2 Module  #3 Title  #4 Priority  #5 Preconditions
+% #6 Steps  #7 Data  #8 Expected  #9 ActualStatusComments (triplet handled inline)
+\renewcommand{\arraystretch}{1.3}
+\noindent\begin{tabularx}{\textwidth}{|>{\bfseries\small}p{3.5cm}|>{\small}X|}
+\hline
+\rowcolor{headerbg}\multicolumn{2}{|l|}{\color{white}\bfseries\small #1 -- #3}\\
+\hline
+Test Case ID    & #1 \\ \hline
+\rowcolor{rowgray}
+Module          & #2 \\ \hline
+Title           & #3 \\ \hline
+\rowcolor{rowgray}
+Priority        & #4 \\ \hline
+Pre-conditions  & #5 \\ \hline
+\rowcolor{rowgray}
+Test Steps      & #6 \\ \hline
+Test Data       & #7 \\ \hline
+\rowcolor{rowgray}
+Expected Result & #8 \\ \hline
+#9
+\end{tabularx}
+\vspace{0.7em}
+}
+
+% ─── Three-row suffix macro: actual / status / comments ─────────────────────
+% usage inside testcase 9th arg:
+%   \tcactual{...}\tcstatus{\pass}\tccomment{...}
+\newcommand{\tcactual}[1]{Actual Result & #1 \\ \hline \rowcolor{rowgray}}
+\newcommand{\tcstatus}[1]{Status & #1 \\ \hline}
+\newcommand{\tccomment}[1]{Comments & #1 \\ \hline}
+
+% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+% ════════════════════════════════════════════════════════════════════════════
+
+% ─── Title Page ──────────────────────────────────────────────────────────────
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Huge\bfseries\color{sectionblue} Courtify}\par
+\vspace{0.4cm}
+{\Large Sports Arena Booking Platform}\par
+\vspace{1.5cm}
+{\huge Sprint 1 -- Test Cases}\par
+\vspace{2cm}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ll}
+\textbf{Project}     & Courtify -- Sports Arena Booking Platform \\
+\textbf{Sprint}      & 1 \\
+\textbf{Prepared By} & Shaheer, Yousuf, Zarrar, Wasiq \\
+\textbf{Date}        & March 31, 2026 \\
+\textbf{Version}     & 1.0 \\
+\end{tabular}
+\end{titlepage}
+
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Test Environment}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|}
+\hline
+\rowcolor{headerbg}\color{white}Parameter & \color{white}Value \\ \hline
+Frontend               & http://localhost:5173 \\ \hline
+\rowcolor{rowgray}
+Backend                & http://localhost:5000 \\ \hline
+Database               & MySQL -- courtify\_db \\ \hline
+\rowcolor{rowgray}
+Browser                & Google Chrome (latest) \\ \hline
+API Tool               & Postman \\ \hline
+\rowcolor{rowgray}
+Postman-test samples   & /postman/collections/Courtify Sprint 1 Tests \\ \hline
+\end{tabularx}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 1 -- User Registration}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-REG-001}{User Registration}{Successful player registration with valid inputs}
+  {High}
+  {Backend running; email ``newplayer@test.com'' not in DB}
+  {1. Go to signup page. 2. Select ``Player''. 3. Fill all fields. 4. Click Sign Up.}
+  {Name: Ali Khan, Email: newplayer@test.com, Phone: 03001234567, Password: Pass@1234}
+  {HTTP 201; ``Account created. Check your email to verify.'' shown; record in players table with is\_active=0}
+  {\tcactual{HTTP 201 returned; message shown on UI; DB record confirmed}\tcstatus{\pass}\tccomment{Verification token generated and stored correctly}}
+
+\testcase
+  {TC-REG-002}{User Registration}{Successful arena owner registration with valid inputs}
+  {High}
+  {Backend running; email ``newowner@test.com'' not in DB}
+  {1. Go to signup page. 2. Select ``Owner''. 3. Fill all fields. 4. Click Sign Up.}
+  {Name: Sara Malik, Email: newowner@test.com, Phone: 03009876543, Password: Owner@5678}
+  {HTTP 201; record in arena\_owners with is\_active=0; verification email sent}
+  {\tcactual{HTTP 201; DB record confirmed; email dispatched via Nodemailer}\tcstatus{\pass}\tccomment{Separate arena\_owners table used correctly}}
+
+\testcase
+  {TC-REG-003}{User Registration}{Registration fails with duplicate player email}
+  {High}
+  {Email ``newplayer@test.com'' already exists in players table}
+  {1. Go to signup. 2. Select ``Player''. 3. Enter existing email. 4. Click Sign Up.}
+  {Email: newplayer@test.com, Password: AnyPass123}
+  {HTTP 409; error message ``Email already registered''}
+  {\tcactual{HTTP 409; correct error shown on UI}\tcstatus{\pass}\tccomment{Duplicate check applied before insert}}
+
+\testcase
+  {TC-REG-004}{User Registration}{Registration fails with duplicate owner email}
+  {High}
+  {Email ``newowner@test.com'' already exists in arena\_owners}
+  {1. Go to signup. 2. Select ``Owner''. 3. Enter existing email. 4. Click Sign Up.}
+  {Email: newowner@test.com, Password: AnyPass123}
+  {HTTP 409; ``Email already registered''}
+  {\tcactual{HTTP 409; error shown correctly}\tcstatus{\pass}\tccomment{Duplicate check works for owner table separately}}
+
+\testcase
+  {TC-REG-005}{User Registration}{Registration fails with invalid email format}
+  {High}
+  {Backend running}
+  {1. Go to signup. 2. Enter malformed email. 3. Click Sign Up.}
+  {Email: notanemail, Password: Pass@1234}
+  {HTTP 400; ``Invalid email format''}
+  {\tcactual{HTTP 400; correct error}\tcstatus{\pass}\tccomment{Regex validation applied server-side}}
+
+\testcase
+  {TC-REG-006}{User Registration}{Registration fails when email is missing}
+  {High}
+  {Backend running}
+  {1. Send POST /auth/signup without email field.}
+  {Body: \{ ``password'': ``Pass@1234'', ``userType'': ``player'' \}}
+  {HTTP 400; ``Email and password required''}
+  {\tcactual{HTTP 400; correct error}\tcstatus{\pass}\tccomment{Server-side guard before processing}}
+
+\testcase
+  {TC-REG-007}{User Registration}{Registration fails when password is missing}
+  {High}
+  {Backend running}
+  {1. Send POST /auth/signup without password field.}
+  {Body: \{ ``email'': ``x@test.com'', ``userType'': ``player'' \}}
+  {HTTP 400; ``Email and password required''}
+  {\tcactual{HTTP 400; correct error}\tcstatus{\pass}\tccomment{Same guard catches missing password}}
+
+\testcase
+  {TC-REG-008}{User Registration}{Registration fails with invalid userType}
+  {Medium}
+  {Backend running}
+  {1. Send POST /auth/signup with userType = ``admin''.}
+  {Body: \{ ``email'': ``x@test.com'', ``password'': ``Pass@1234'', ``userType'': ``admin'' \}}
+  {HTTP 400; ``Invalid user type''}
+  {\tcactual{HTTP 400; correct error}\tcstatus{\pass}\tccomment{Only ``player'' and ``owner'' are accepted}}
+
+\testcase
+  {TC-REG-009}{User Registration}{Password is stored as bcrypt hash, not plain text}
+  {High}
+  {Successful registration completed}
+  {1. Register user. 2. Query players table for the record. 3. Check password\_hash field.}
+  {Email: checkpass@test.com, Password: PlainPass99}
+  {password\_hash starts with ``\$2b\$10\$'' (bcrypt format); not equal to ``PlainPass99''}
+  {\tcactual{Hash confirmed starting with \$2b\$10\$; plain text not stored}\tcstatus{\pass}\tccomment{Salt rounds = 10 used}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 2 -- Email Verification}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-VER-001}{Email Verification}{Player account activated via valid verification link}
+  {High}
+  {Player registered; is\_active=0; valid token in players table; email received}
+  {1. Open verification email. 2. Click the verification link. 3. Observe redirect. 4. Check DB.}
+  {Token: valid 64-char hex token from DB}
+  {HTTP 302 redirect to /?verified=1\&type=player; is\_active=1; verification\_token=NULL in DB}
+  {\tcactual{Redirect confirmed; DB updated correctly}\tcstatus{\pass}\tccomment{Both player and owner share same endpoint, tried player first}}
+
+\testcase
+  {TC-VER-002}{Email Verification}{Owner account activated via valid verification link}
+  {High}
+  {Owner registered; is\_active=0; valid token in arena\_owners table}
+  {1. Click verification link from owner email. 2. Check redirect. 3. Check DB.}
+  {Token: valid 64-char hex token from arena\_owners}
+  {Redirect to /?verified=1\&type=owner; is\_active=1; token cleared}
+  {\tcactual{Owner redirect confirmed; DB updated}\tcstatus{\pass}\tccomment{Fallback to arena\_owners after player check finds no match}}
+
+\testcase
+  {TC-VER-003}{Email Verification}{Verification fails with invalid token}
+  {High}
+  {Backend running}
+  {1. Send GET /auth/verify?token=invalidtoken123}
+  {token: invalidtoken123}
+  {HTTP 400; ``Invalid or expired token''}
+  {\tcactual{HTTP 400; correct message returned}\tcstatus{\pass}\tccomment{No DB modification occurs}}
+
+\testcase
+  {TC-VER-004}{Email Verification}{Verification fails when token parameter is absent}
+  {Medium}
+  {Backend running}
+  {1. Send GET /auth/verify (no token param)}
+  {No query parameters}
+  {HTTP 400; ``Invalid verification link''}
+  {\tcactual{HTTP 400; correct message}\tcstatus{\pass}\tccomment{Early return before DB query}}
+
+\testcase
+  {TC-VER-005}{Email Verification}{Reusing an already-used verification token fails}
+  {High}
+  {User already verified; verification\_token = NULL in DB}
+  {1. Click the same verification link a second time.}
+  {Token: same token used in TC-VER-001}
+  {HTTP 400; ``Invalid or expired token''; no DB changes}
+  {\tcactual{HTTP 400; token already NULL; account untouched}\tcstatus{\pass}\tccomment{Token cleared on first use -- prevents replay}}
+
+\testcase
+  {TC-VER-006}{Email Verification}{Dashboard shows success banner after verification redirect}
+  {Medium}
+  {User clicks verification link and is redirected to /?verified=1\&type=player}
+  {1. Complete verification. 2. Observe dashboard page.}
+  {URL: http://localhost:5173/?verified=1\&type=player}
+  {Success message displayed (e.g. ``Email verified! You can now log in.'')}
+  {\tcactual{Success banner shown correctly on dashboard}\tcstatus{\pass}\tccomment{Query param read on component mount}}
+
+\testcase
+  {TC-VER-007}{Email Verification}{Verification email contains correctly formatted link}
+  {High}
+  {User registers successfully}
+  {1. Register new player. 2. Open received email. 3. Inspect the link URL.}
+  {Email: linkcheck@test.com}
+  {Link format: http://localhost:5000/auth/verify?token=<64-char-hex>}
+  {\tcactual{Link matches expected format; clickable button present in HTML email}\tcstatus{\pass}\tccomment{Email uses styled HTML template}}
+
+\testcase
+  {TC-VER-008}{Email Verification}{Signup page shows ``check your email'' message after registration}
+  {Medium}
+  {Backend running; Nodemailer configured}
+  {1. Complete signup form. 2. Submit. 3. Observe UI.}
+  {Valid new player credentials}
+  {Frontend displays message prompting user to check their email}
+  {\tcactual{``Check your email to verify'' shown after signup}\tcstatus{\pass}\tccomment{Message shown regardless of email delivery success}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 3 -- User Login}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-LOG-001}{User Login}{Verified player logs in successfully}
+  {High}
+  {Player account in DB; is\_active=1}
+  {1. Go to login. 2. Select ``Player''. 3. Enter credentials. 4. Click Login.}
+  {Email: player@example.com, Password: 12345678}
+  {HTTP 200; user data returned; redirected to dashboard; AuthContext updated}
+  {\tcactual{HTTP 200; Dashboard loaded with user session}\tcstatus{\pass}\tccomment{Player dashboard shown; owner route not accessible}}
+
+\testcase
+  {TC-LOG-002}{User Login}{Verified owner logs in and is redirected to owner dashboard}
+  {High}
+  {Owner account in DB; is\_active=1}
+  {1. Select ``Owner'' on login. 2. Enter credentials. 3. Click Login.}
+  {Email: marksman\_admin@example.com, Password: 12345678}
+  {HTTP 200; userType=``owner''; redirect to /owner/dashboard}
+  {\tcactual{HTTP 200; Owner dashboard loaded}\tcstatus{\pass}\tccomment{isOwner() check in AuthContext drives the redirect}}
+
+\testcase
+  {TC-LOG-003}{User Login}{Unverified player cannot log in}
+  {High}
+  {Player registered; is\_active=0 (email not verified)}
+  {1. Enter credentials of unverified player. 2. Click Login.}
+  {Email: unverified@test.com, Password: Pass@1234}
+  {HTTP 403; ``Please verify your email first''; no session created}
+  {\tcactual{HTTP 403; error shown on login UI}\tcstatus{\pass}\tccomment{is\_active check happens before bcrypt comparison}}
+
+\testcase
+  {TC-LOG-004}{User Login}{Login fails with incorrect password}
+  {High}
+  {Verified player account exists}
+  {1. Enter correct email but wrong password. 2. Click Login.}
+  {Email: player@example.com, Password: wrongpass}
+  {HTTP 401; ``Invalid email or password''}
+  {\tcactual{HTTP 401; error message shown}\tcstatus{\pass}\tccomment{Generic message does not reveal whether email exists}}
+
+\testcase
+  {TC-LOG-005}{User Login}{Login fails with non-existent email}
+  {High}
+  {Email not present in DB}
+  {1. Enter unregistered email. 2. Enter any password. 3. Click Login.}
+  {Email: ghost@nowhere.com, Password: AnyPass123}
+  {HTTP 401; ``Invalid email or password''}
+  {\tcactual{HTTP 401; generic error (no email existence disclosure)}\tcstatus{\pass}\tccomment{Secure -- does not confirm whether email is registered}}
+
+\testcase
+  {TC-LOG-006}{User Login}{Login fails with missing email parameter}
+  {Medium}
+  {Backend running}
+  {1. Send GET /auth/validate without email param.}
+  {Query: ?password=abc\&userType=player}
+  {HTTP 400; ``Email and password required''}
+  {\tcactual{HTTP 400; correct error}\tcstatus{\pass}\tccomment{Guards before DB query}}
+
+\testcase
+  {TC-LOG-007}{User Login}{Login fails with invalid userType}
+  {Medium}
+  {Backend running}
+  {1. Send GET /auth/validate with userType=superadmin.}
+  {Email: player@example.com, Password: 12345678, userType: superadmin}
+  {HTTP 400; ``Invalid user type''}
+  {\tcactual{HTTP 400; correct error}\tcstatus{\pass}\tccomment{Only ``player'' and ``owner'' accepted}}
+
+\testcase
+  {TC-LOG-008}{User Login}{Login response does not contain password or hash}
+  {High}
+  {Verified player account exists}
+  {1. Log in successfully. 2. Inspect HTTP response body.}
+  {Email: player@example.com, Password: 12345678}
+  {Response contains: authenticated, userId, email, name, userType -- no password\_hash field}
+  {\tcactual{Response inspected; no password or hash present}\tcstatus{\pass}\tccomment{Critical security check}}
+
+\testcase
+  {TC-LOG-009}{User Login}{Session persists on page refresh}
+  {Medium}
+  {Player logged in successfully}
+  {1. Log in as player. 2. Refresh the browser page. 3. Observe NavBar and state.}
+  {Email: player@example.com, Password: 12345678}
+  {User remains logged in; NavBar reflects authenticated state}
+  {\tcactual{Session persists via localStorage; NavBar shows logged-in state}\tcstatus{\pass}\tccomment{AuthContext reads from localStorage on mount}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 4 -- Arena and Court Listing}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-LST-001}{Arena Listing}{All arenas returned with correct fields}
+  {High}
+  {3 arenas seeded in DB with images}
+  {1. Send GET /arenas. 2. Inspect response.}
+  {None (reads DB)}
+  {HTTP 200; array of 3 arenas with id, name, location, pricePerHour, availability, rating, image\_path}
+  {\tcactual{All 3 arenas returned with correct fields}\tcstatus{\pass}\tccomment{image\_path from subquery on arena\_images table}}
+
+\testcase
+  {TC-LST-002}{Arena Listing}{Arena listing renders VenueCards on dashboard}
+  {High}
+  {Frontend and backend running}
+  {1. Open http://localhost:5173. 2. Observe arena cards.}
+  {None}
+  {3 VenueCards displayed showing name, city, price, image}
+  {\tcactual{3 VenueCards rendered correctly}\tcstatus{\pass}\tccomment{Cards are clickable -- navigate to venue detail}}
+
+\testcase
+  {TC-LST-003}{Arena Detail}{Venue detail page shows correct data for Legends Arena}
+  {High}
+  {Legends Arena (id=1) seeded with full details}
+  {1. Send GET /arena/1. 2. Inspect response.}
+  {Arena ID: 1}
+  {HTTP 200; name, address, city, rating, pricePerHour, timing, amenities (array), description, rules (array), images, courts}
+  {\tcactual{All fields returned correctly}\tcstatus{\pass}\tccomment{amenities and rules returned as parsed arrays, not raw JSON strings}}
+
+\testcase
+  {TC-LST-004}{Arena Detail -- Error Correction}{Legends Arena shows only Futsal and Padel courts (no Swimming Pool)}
+  {High}
+  {Legends Arena seeded with Futsal Court and Padel Court only}
+  {1. Open venue detail for Legends Arena. 2. Check courts section.}
+  {Arena ID: 1}
+  {courts object contains only ``Futsal'' and ``Padel'' keys; no ``Swimming Pool''}
+  {\tcactual{Only Futsal and Padel shown; no incorrect types}\tcstatus{\pass}\tccomment{Core bug-fix validation -- sport type driven by DB join, not hardcoded}}
+
+\testcase
+  {TC-LST-005}{Arena Detail -- Error Correction}{Marksman Arena shows correct court types}
+  {High}
+  {Marksman Arena (id=2) seeded with Badminton and Futsal courts}
+  {1. Open venue detail for Marksman Arena. 2. Check courts section.}
+  {Arena ID: 2}
+  {Courts section shows ``Badminton'' and ``Futsal'' only}
+  {\tcactual{Correct types displayed; no phantom sports}\tcstatus{\pass}\tccomment{Regression test for the court-type fix}}
+
+\testcase
+  {TC-LST-006}{Arena Detail -- Error Correction}{Titan Arena shows correct court types}
+  {High}
+  {Titan Arena (id=3) seeded with Padel and Tennis courts}
+  {1. Open venue detail for Titan Arena. 2. Check courts section.}
+  {Arena ID: 3}
+  {Courts section shows ``Padel'' and ``Tennis'' only}
+  {\tcactual{Correct types shown}\tcstatus{\pass}\tccomment{Titan Arena has availability=closed; still shows detail}}
+
+\testcase
+  {TC-LST-007}{Arena Listing}{Closed arena appears in listing with correct availability status}
+  {Medium}
+  {Titan Arena seeded with availability = 'closed'}
+  {1. Load dashboard. 2. Find Titan Arena card. 3. Check availability field.}
+  {Arena ID: 3}
+  {Titan Arena visible; availability = ``closed'' in API response; card marked accordingly}
+  {\tcactual{Arena card present; availability field correct}\tcstatus{\pass}\tccomment{Closed arenas are not filtered out of listing}}
+
+\testcase
+  {TC-LST-008}{Arena Detail}{Amenities returned as parsed array, not JSON string}
+  {High}
+  {Legends Arena has JSON amenities in DB}
+  {1. Send GET /arena/1. 2. Check amenities field type.}
+  {Arena ID: 1}
+  {amenities is a JS array e.g. [``Changing Rooms'', ``Showers'', ``Parking'', ``Equipment Rental'']}
+  {\tcactual{Amenities returned as parsed array}\tcstatus{\pass}\tccomment{safeJSON() handles Buffer/string cases from MySQL}}
+
+\testcase
+  {TC-LST-009}{Arena Detail}{Rules returned as parsed array, not JSON string}
+  {High}
+  {Legends Arena has JSON rules in DB}
+  {1. Send GET /arena/1. 2. Check rules field type.}
+  {Arena ID: 1}
+  {rules is a JS array e.g. [``Proper sports shoes required'', ...]}
+  {\tcactual{Rules returned as parsed array}\tcstatus{\pass}\tccomment{Same safeJSON() handles both fields}}
+
+\testcase
+  {TC-LST-010}{Arena Detail}{Non-existent arena returns 404}
+  {Medium}
+  {Backend running; arena ID 99999 does not exist}
+  {1. Send GET /arena/99999.}
+  {Arena ID: 99999}
+  {HTTP 404; ``Arena not found''}
+  {\tcactual{HTTP 404 returned}\tcstatus{\pass}\tccomment{Result array length check before responding}}
+
+\testcase
+  {TC-LST-011}{Arena Listing}{Arenas returned in descending ID order}
+  {Low}
+  {Multiple arenas in DB}
+  {1. Send GET /arenas. 2. Check order of returned arenas.}
+  {None}
+  {Arenas returned with highest ID first (ORDER BY id DESC)}
+  {\tcactual{Newest arenas appear first in response}\tcstatus{\pass}\tccomment{Useful for showing recently added arenas first}}
+
+\testcase
+  {TC-LST-012}{Arena Detail}{Courts grouped by type in venue detail response}
+  {High}
+  {Legends Arena has Futsal and Padel courts seeded}
+  {1. Send GET /arena/1. 2. Check courts field structure.}
+  {Arena ID: 1}
+  {courts is an object: \{ ``Futsal'': [\{ id, name \}], ``Padel'': [\{ id, name \}] \}}
+  {\tcactual{Grouped court object returned correctly}\tcstatus{\pass}\tccomment{Grouping done in application layer using forEach}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 5 -- Search and Filter}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-SCH-001}{Search and Filter}{Search by arena name filters results in real-time}
+  {Medium}
+  {3 arenas visible on dashboard}
+  {1. Type ``Legend'' in search bar. 2. Observe cards.}
+  {Search input: ``Legend''}
+  {Only ``Legends Arena'' card visible; others hidden}
+  {\tcactual{Filter works; only matching card displayed}\tcstatus{\pass}\tccomment{No page reload; purely state-based}}
+
+\testcase
+  {TC-SCH-002}{Search and Filter}{Search by city filters results in real-time}
+  {Medium}
+  {3 arenas (Karachi x2, Lahore x1) on dashboard}
+  {1. Type ``Lahore'' in search bar. 2. Observe cards.}
+  {Search input: ``Lahore''}
+  {Only Marksman Arena (Lahore) visible}
+  {\tcactual{Only Marksman shown; Karachi arenas hidden}\tcstatus{\pass}\tccomment{Case-insensitive match recommended for Sprint 2}}
+
+\testcase
+  {TC-SCH-003}{Search and Filter}{Clearing search restores all arena cards}
+  {Medium}
+  {User has typed in search bar}
+  {1. Enter ``Legend'' in search. 2. Clear the input. 3. Observe cards.}
+  {Search input: ``'' (after clear)}
+  {All 3 arena cards visible again}
+  {\tcactual{All cards restored on clear}\tcstatus{\pass}\tccomment{Filter resets when input is empty}}
+
+\testcase
+  {TC-SCH-004}{Search and Filter}{Search with no matching input shows empty state}
+  {Medium}
+  {3 arenas on dashboard}
+  {1. Type ``zzzznotexist'' in search bar. 2. Observe results.}
+  {Search input: ``zzzznotexist''}
+  {No arena cards displayed; empty state or ``No results'' shown}
+  {\tcactual{No cards shown; empty state displayed}\tcstatus{\pass}\tccomment{UI should handle zero-result state gracefully}}
+
+\testcase
+  {TC-SCH-005}{Search and Filter}{Search is case-insensitive for arena name}
+  {Low}
+  {3 arenas on dashboard}
+  {1. Type ``legends'' (lowercase) in search bar. 2. Observe cards.}
+  {Search input: ``legends''}
+  {Legends Arena still found despite lowercase}
+  {\tcactual{Match found -- filter is case-insensitive}\tcstatus{\pass}\tccomment{toLowerCase() applied on both sides in filter logic}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 6 -- Owner: Arena Registration}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-OWN-001}{Owner Arena Registration}{Owner successfully creates a new arena}
+  {High}
+  {Logged in as owner; on /owner/register-facility page}
+  {1. Fill all form fields. 2. Submit form.}
+  {Name: Sports Hub, City: Islamabad, Address: F-7 Markaz, Price: 3000, Timing: 8 AM - 10 PM}
+  {HTTP 201; ``Arena created successfully'' with new arena id; arena appears in owner dashboard}
+  {\tcactual{HTTP 201; arena created and visible in dashboard}\tcstatus{\pass}\tccomment{availability defaults to 'available'; rating defaults to 0}}
+
+\testcase
+  {TC-OWN-002}{Owner Arena Registration}{Arena creation fails with missing required fields}
+  {High}
+  {Backend running}
+  {1. Send POST /arenas without required fields.}
+  {Body: \{ ``name'': ``Incomplete'' \}}
+  {HTTP 400; ``Missing required fields''}
+  {\tcactual{HTTP 400; correct error}\tcstatus{\pass}\tccomment{owner\_id, name, city, pricePerHour are required}}
+
+\testcase
+  {TC-OWN-003}{Owner Arena Registration}{Arena default values set correctly on creation}
+  {Medium}
+  {Owner creates arena with minimum required fields}
+  {1. Create arena with only required fields. 2. Query arenas table.}
+  {owner\_id: 1, name: Test, city: Karachi, pricePerHour: 2000}
+  {availability = 'available'; rating = 0.00}
+  {\tcactual{DB confirms availability='available' and rating=0.00}\tcstatus{\pass}\tccomment{Defaults set by SQL schema}}
+
+\testcase
+  {TC-OWN-004}{Owner Arena Registration}{Owner dashboard lists own arenas via GET /owner/arenas}
+  {High}
+  {Owner logged in; has at least 1 arena in DB}
+  {1. Send GET /owner/arenas?ownerId=1. 2. Inspect response.}
+  {ownerId: 1}
+  {HTTP 200; array of arenas belonging to owner 1; amenities and rules as parsed arrays}
+  {\tcactual{Correct arenas returned; JSON fields parsed}\tcstatus{\pass}\tccomment{amenities/rules parsed from JSON strings in response}}
+
+\testcase
+  {TC-OWN-005}{Owner Arena Registration}{GET /owner/arenas returns empty array when owner has no arenas}
+  {Medium}
+  {New owner with no registered arenas}
+  {1. Send GET /owner/arenas?ownerId=999.}
+  {ownerId: 999 (no arenas)}
+  {HTTP 200; empty array []}
+  {\tcactual{HTTP 200; [] returned}\tcstatus{\pass}\tccomment{No error; just empty result set}}
+
+\testcase
+  {TC-OWN-006}{Owner Arena Registration}{GET /owner/arenas fails without ownerId param}
+  {Medium}
+  {Backend running}
+  {1. Send GET /owner/arenas (no ownerId).}
+  {No query params}
+  {HTTP 400; ``Owner ID required''}
+  {\tcactual{HTTP 400; correct error}\tcstatus{\pass}\tccomment{Guard before DB query}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 7 -- Route Protection}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-RTE-001}{Route Protection}{Player cannot access /owner/dashboard}
+  {High}
+  {User logged in as Player (userType = ``player'')}
+  {1. Log in as player. 2. Manually navigate to /owner/dashboard.}
+  {userType: player}
+  {Redirected to ``/'' (Dashboard); owner dashboard not shown}
+  {\tcactual{Player redirected to main dashboard}\tcstatus{\pass}\tccomment{isOwner() returns false; Navigate component fires}}
+
+\testcase
+  {TC-RTE-002}{Route Protection}{Player cannot access /owner/register-facility}
+  {High}
+  {User logged in as Player}
+  {1. Log in as player. 2. Navigate to /owner/register-facility.}
+  {userType: player}
+  {Redirected to ``/''}
+  {\tcactual{Redirected to main dashboard}\tcstatus{\pass}\tccomment{Same protection logic applied to both owner routes}}
+
+\testcase
+  {TC-RTE-003}{Route Protection}{Unauthenticated user cannot access owner routes}
+  {High}
+  {User is NOT logged in (no session)}
+  {1. Open browser fresh (no saved session). 2. Navigate to /owner/dashboard.}
+  {No login state in localStorage}
+  {Redirected to ``/''}
+  {\tcactual{User redirected to main dashboard}\tcstatus{\pass}\tccomment{isOwner() returns false when no user in context}}
+
+\testcase
+  {TC-RTE-004}{Route Protection}{Owner can access /owner/dashboard}
+  {High}
+  {User logged in as Owner}
+  {1. Log in as owner. 2. Navigate to /owner/dashboard.}
+  {userType: owner}
+  {Owner dashboard page loads correctly}
+  {\tcactual{Dashboard loads; arena list shown}\tcstatus{\pass}\tccomment{Positive test to confirm protection doesn't block valid owner}}
+
+\testcase
+  {TC-RTE-005}{Route Protection}{Owner can access /owner/register-facility}
+  {High}
+  {User logged in as Owner}
+  {1. Log in as owner. 2. Navigate to /owner/register-facility.}
+  {userType: owner}
+  {Facility registration form loads}
+  {\tcactual{Form displayed correctly}\tcstatus{\pass}\tccomment{Positive test for owner route access}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 8 -- Database Integrity}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-DB-001}{Database Integrity}{Arena foreign key enforced -- invalid owner\_id rejected}
+  {Medium}
+  {Backend running; owner ID 9999 does not exist}
+  {1. Send POST /arenas with owner\_id=9999.}
+  {owner\_id: 9999, name: Test, city: Lahore, pricePerHour: 2000}
+  {HTTP 500 or 400; DB insert fails due to FK constraint}
+  {\tcactual{DB rejects insert; error returned}\tcstatus{\pass}\tccomment{arenas.owner\_id FK references arena\_owners.id}}
+
+\testcase
+  {TC-DB-002}{Database Integrity}{Court FK enforced -- invalid court\_type\_id rejected}
+  {Medium}
+  {DB running}
+  {1. Attempt to insert a court with court\_type\_id=99 (doesn't exist).}
+  {arena\_id: 1, court\_type\_id: 99, name: Test Court}
+  {DB insert fails; FK violation error}
+  {\tcactual{Insert rejected by MySQL}\tcstatus{\pass}\tccomment{courts.court\_type\_id FK references court\_types.id}}
+
+\testcase
+  {TC-DB-003}{Database Integrity}{Player email uniqueness enforced at DB level}
+  {High}
+  {Player with email ``player@example.com'' exists}
+  {1. Attempt direct DB insert with same email.}
+  {email: player@example.com}
+  {MySQL UNIQUE constraint violation; insert rejected}
+  {\tcactual{Insert fails with duplicate entry error}\tcstatus{\pass}\tccomment{Application-level check also in place (TC-REG-003)}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Test Execution Summary}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|X|c|c|c|c|}
+\hline
+\rowcolor{headerbg}
+\color{white}\bfseries Module & \color{white}\bfseries Total & \color{white}\bfseries Pass & \color{white}\bfseries Fail & \color{white}\bfseries Blocked \\
+\hline
+User Registration       & 9  & 9  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Email Verification      & 8  & 8  & 0 & 0 \\ \hline
+User Login              & 9  & 9  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Arena and Court Listing & 12 & 12 & 0 & 0 \\ \hline
+Search and Filter       & 5  & 5  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Owner Arena Registration & 6 & 6  & 0 & 0 \\ \hline
+Route Protection        & 5  & 5  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Database Integrity      & 3  & 3  & 0 & 0 \\ \hline
+\rowcolor{headerbg}
+\color{white}\bfseries Total & \color{white}\bfseries 57 & \color{white}\bfseries 57 & \color{white}\bfseries 0 & \color{white}\bfseries 0 \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+\begin{center}
+\textit{Prepared by the Courtify Sprint 1 team -- Shaheer, Yousuf, Zarrar, Wasiq}
+\end{center}
+
+\end{document}

@@ -1,0 +1,25 @@
+$kind: collection
+name: Courtify Sprint 1 Tests
+description: >-
+  Sprint 1 test cases for the Courtify Sports Arena Booking Platform.
+
+  Covers: Registration, Email Verification, Login, Arena Listing,
+
+  Search & Filter, Owner Arena Registration, Route Protection, and Database
+  Integrity.
+
+  57 test cases total — all passing as of March 31 2026.
+
+  Prepared by: Shaheer, Yousuf, Zarrar, Wasiq
+variables:
+  base_url: http://localhost:5000
+  frontend_url: http://localhost:5173
+  player_email: player@example.com
+  player_password: "12345678"
+  owner_email: marksman_admin@example.com
+  owner_password: "12345678"
+  verification_token: REPLACE_WITH_TOKEN_FROM_DB
+  arena_count: ""
+  player_token: ""
+  owner_token: ""
+  created_arena_id: ""

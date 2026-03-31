@@ -1,0 +1,19 @@
+$kind: http-request
+name: 'TC-LST-003 — Arena Has Required Fields'
+method: GET
+url: '{{base_url}}/arenas'
+order: 3000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LST-003: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-LST-003: Each arena has required fields", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("array").that.is.not.empty;
+          json.forEach(arena => {
+              pm.expect(arena).to.have.property("id");
+              pm.expect(arena).to.have.property("name");
+              pm.expect(arena).to.have.property("location");
+          });
+      });

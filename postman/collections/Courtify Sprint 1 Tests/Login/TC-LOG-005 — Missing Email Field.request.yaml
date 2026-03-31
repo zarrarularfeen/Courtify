@@ -1,0 +1,24 @@
+$kind: http-request
+name: 'TC-LOG-005 — Missing Email Field'
+method: POST
+url: '{{base_url}}/auth/login'
+order: 5000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "password": "12345678",
+      "userType": "player"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LOG-005: Status is 400", () => pm.response.to.have.status(400));
+      pm.test("TC-LOG-005: Response contains missing email error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/email.*required|missing.*email|email.*missing/i);
+      });

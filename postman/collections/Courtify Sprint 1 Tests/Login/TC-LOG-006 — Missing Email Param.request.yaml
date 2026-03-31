@@ -1,0 +1,19 @@
+$kind: http-request
+name: 'TC-LOG-006 — Missing Email Param'
+method: GET
+url: 'http://localhost:5000/auth/validate'
+order: 6000
+queryParams:
+  - key: password
+    value: abc
+  - key: userType
+    value: player
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LOG-006: Status is 400", () => pm.response.to.have.status(400));
+      pm.test("TC-LOG-006: Email and password required error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.include("Email and password required");
+      });

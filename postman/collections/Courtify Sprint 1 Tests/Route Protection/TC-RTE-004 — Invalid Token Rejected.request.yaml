@@ -1,0 +1,17 @@
+$kind: http-request
+name: 'TC-RTE-004 — Invalid Token Rejected'
+method: GET
+url: '{{base_url}}/player/dashboard'
+order: 4000
+headers:
+  - key: Authorization
+    value: 'Bearer {{invalid_jwt_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-RTE-004: Status is 401", () => pm.response.to.have.status(401));
+      pm.test("TC-RTE-004: Response contains invalid token error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/invalid.*token|token.*invalid|unauthorized/i);
+      });

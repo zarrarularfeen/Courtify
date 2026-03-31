@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'TC-LOG-003 — Unverified Player Login'
+method: GET
+url: 'http://localhost:5000/auth/validate'
+order: 3000
+queryParams:
+  - key: email
+    value: unverified@test.com
+  - key: password
+    value: 'Pass@1234'
+  - key: userType
+    value: player
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LOG-003: Status is 403", () => pm.response.to.have.status(403));
+      pm.test("TC-LOG-003: Please verify your email error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.include("verify your email");
+      });

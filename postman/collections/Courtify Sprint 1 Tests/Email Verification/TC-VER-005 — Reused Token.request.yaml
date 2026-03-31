@@ -1,0 +1,23 @@
+$kind: http-request
+name: 'TC-VER-005 — Reused Token (Already Verified)'
+method: GET
+url: '{{base_url}}/auth/verify'
+order: 5000
+queryParams:
+  - key: token
+    value: '{{valid_player_token}}'
+    description: 'Use the same token from TC-VER-001 — it should now be NULL in DB and fail'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-VER-005: Reusing an already-used verification token fails
+      // Pre-condition: TC-VER-001 must have been run first (token is now NULL in DB)
+      pm.test("TC-VER-005: Status is 400 Bad Request", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("TC-VER-005: Error message indicates invalid or expired token", function () {
+          const json = pm.response.json();
+          pm.expect(json.message.toLowerCase()).to.include("invalid");
+      });

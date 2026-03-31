@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'TC-LOG-002 — Owner Login (Valid)'
+method: GET
+url: 'http://localhost:5000/auth/validate'
+order: 2000
+queryParams:
+  - key: email
+    value: marksman_admin@example.com
+  - key: password
+    value: '12345678'
+  - key: userType
+    value: owner
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LOG-002: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-LOG-002: userType is owner", () => {
+          const json = pm.response.json();
+          pm.expect(json.userType).to.equal("owner");
+      });

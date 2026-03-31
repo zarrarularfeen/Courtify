@@ -1,0 +1,27 @@
+$kind: http-request
+name: 'TC-REG-001 — Player Signup (Valid)'
+method: POST
+url: 'http://localhost:5000/auth/signup'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "newplayer_{{$timestamp}}@test.com",
+      "password": "Pass@1234",
+      "name": "Ali Khan",
+      "phone": "03001234567",
+      "userType": "player"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-REG-001: Status is 201", () => pm.response.to.have.status(201));
+      pm.test("TC-REG-001: Response contains success message", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.include("Account created");
+      });

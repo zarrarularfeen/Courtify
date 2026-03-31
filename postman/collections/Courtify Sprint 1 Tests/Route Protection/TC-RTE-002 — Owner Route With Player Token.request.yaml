@@ -1,0 +1,26 @@
+$kind: http-request
+name: 'TC-RTE-002 — Owner Route With Player Token'
+method: GET
+url: '{{base_url}}/owner/dashboard'
+order: 2000
+headers:
+  - key: Authorization
+    value: 'Bearer {{player_token}}'
+description: 'TC-RTE-002: Verifies that a player token cannot access owner-only routes.'
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      const token = pm.collectionVariables.get("player_token");
+      if (!token || token.trim() === "") {
+          pm.execution.skipRequest();
+          console.warn("TC-RTE-002: Skipped — player_token not set. Run Login tests first.");
+      }
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-RTE-002: Status is 403", () => pm.response.to.have.status(403));
+      pm.test("TC-RTE-002: Response contains forbidden error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/forbidden|access.*denied|not.*owner/i);
+      });

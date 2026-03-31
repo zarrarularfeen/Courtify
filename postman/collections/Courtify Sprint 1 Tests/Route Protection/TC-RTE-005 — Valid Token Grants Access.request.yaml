@@ -1,0 +1,25 @@
+$kind: http-request
+name: 'TC-RTE-005 — Valid Token Grants Access'
+method: GET
+url: '{{base_url}}/player/dashboard'
+order: 5000
+headers:
+  - key: Authorization
+    value: 'Bearer {{player_token}}'
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      const token = pm.collectionVariables.get("player_token");
+      if (!token || token.trim() === "") {
+          pm.execution.skipRequest();
+          console.warn("TC-RTE-005: Skipped — player_token not set. Run Login tests first.");
+      }
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-RTE-005: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-RTE-005: Response contains dashboard data", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("object");
+      });

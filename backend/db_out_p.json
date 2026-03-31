@@ -1,0 +1,342 @@
+[
+  {
+    "email": "player@example.com",
+    "is_active": 1,
+    "verification_token": null
+  },
+  {
+    "email": "shaheertariq312@gmail.com",
+    "is_active": 1,
+    "verification_token": null
+  },
+  {
+    "email": "shaheertariq841@gmail.com",
+    "is_active": 1,
+    "verification_token": null
+  },
+  {
+    "email": "linkcheck@test.com",
+    "is_active": 0,
+    "verification_token": "ca683a2dd65f80a3c0ad2cedb79aabbba172f1e49dfff56d1f102b31c907eb95"
+  },
+  {
+    "email": "uimsgcheck@test.com",
+    "is_active": 0,
+    "verification_token": "1e0c773f9bf9857b2bfa027b5fd840c5f9e16536c4fe86954341500a691f3582"
+  },
+  {
+    "email": "newplayer@test.com",
+    "is_active": 0,
+    "verification_token": "3a9986f93467a003f83bd25a7ece7dcffbb39bf39e8bb0a21df774dcf49252fb"
+  },
+  {
+    "email": "testplayer@example.com",
+    "is_active": 0,
+    "verification_token": "a67b93f50886594307968b3f1e14a0e469331dfce6e266ef7111db311798e16a"
+  },
+  {
+    "email": "shortpass@example.com",
+    "is_active": 0,
+    "verification_token": "5ace9a5629e1865a8fc497aa9f46dd20de0a430df7f569fcf7f6b633c6b17eee"
+  },
+  {
+    "email": "hashtest@example.com",
+    "is_active": 0,
+    "verification_token": "a7877cf81f2aec5675c2c546ec6751bce86ca8c8ec923294a9faf9722d432685"
+  },
+  {
+    "email": "checkpass@test.com",
+    "is_active": 0,
+    "verification_token": "73d9513374820178daa4ee64560a459a0788b33211dea609b69bc54b7d9ce1cc"
+  },
+  {
+    "email": "emailverify@example.com",
+    "is_active": 0,
+    "verification_token": "ca27391f2a5fc6677a9f1d5d14946ffdf3d178f2b392bfba0e82687e2220ccff"
+  },
+  {
+    "email": "player@test.com",
+    "is_active": 1,
+    "verification_token": null
+  },
+  {
+    "email": "unverified@test.com",
+    "is_active": 0,
+    "verification_token": "dummy_unverified_token_abc123"
+  },
+  {
+    "email": "existing@example.com",
+    "is_active": 0,
+    "verification_token": "418fcc2eaf26e5262fb76b506332951c1249625e831bd8367d174377111bc865"
+  },
+  {
+    "email": "newplayer_1774942617@test.com",
+    "is_active": 0,
+    "verification_token": "1c3711083cc89a760b63d3b77156d1d85bf67316066401a5bd2cb01d397874ca"
+  },
+  {
+    "email": "newplayer_1774942621@test.com",
+    "is_active": 0,
+    "verification_token": "f4645e422d87f2a9db604e410704f62d69c039f5968eac40df0b45371dd590cb"
+  },
+  {
+    "email": "checkpass_1774942631@test.com",
+    "is_active": 0,
+    "verification_token": "07db7a063e1b990a87e2652e316eae0109278b913243c8f8dfc02501bcc57670"
+  },
+  {
+    "email": "emailverify_1774942634@example.com",
+    "is_active": 0,
+    "verification_token": "5df769f71e66c578c11cfe1a8c83b0d3a4d5217368dc597f6d97597f67db88d4"
+  },
+  {
+    "email": "newplayer_1774942879@test.com",
+    "is_active": 0,
+    "verification_token": "44ba55eefc3474b3880adc708061d7bfb6a375fa6b098a33278fa1587d8bfc08"
+  },
+  {
+    "email": "newplayer_1774942882@test.com",
+    "is_active": 0,
+    "verification_token": "ef926f843148a1d82009ced8085e656df0a6a921af8d20b346f2e924e42bd476"
+  },
+  {
+    "email": "hashtest_1774942893@example.com",
+    "is_active": 0,
+    "verification_token": "9090294f8441be393314c9753f5f1d97832390e2b4b9246a8296532c58620fb0"
+  },
+  {
+    "email": "checkpass_1774942896@test.com",
+    "is_active": 0,
+    "verification_token": "c3757666e7e08349be83c253286f6989cb332614b9c242d43742230846cb9145"
+  },
+  {
+    "email": "emailverify_1774942899@example.com",
+    "is_active": 0,
+    "verification_token": "495af50fd49c795c42103c1fb18da6a6286ee3c33dbd57788657a39682c5cfb2"
+  },
+  {
+    "email": "uimsgcheck_1774942905@test.com",
+    "is_active": 0,
+    "verification_token": "88e8615108af7c964d32bbef0305f3d94b200c4f3f9bdeedd55cac4ce8567c8c"
+  },
+  {
+    "email": "newplayer_1774943183@test.com",
+    "is_active": 0,
+    "verification_token": "1b1ec2845e9831b9db7f6814d948a8b108ed629b6cf80bd5e99706e8fd080855"
+  },
+  {
+    "email": "newplayer_1774943190@test.com",
+    "is_active": 0,
+    "verification_token": "9c0447308b2d39d35dab4d464e79f79ced8eb96aa63ecbcfd69e0d60b7324ba2"
+  },
+  {
+    "email": "hashtest_1774943213@example.com",
+    "is_active": 0,
+    "verification_token": "00724e88336a7e42523776381371ccff2deee767f88af3ee7f9751badb9318d5"
+  },
+  {
+    "email": "checkpass_1774943220@test.com",
+    "is_active": 0,
+    "verification_token": "b3d7d2d00453107fc4136deaa509ed6391c1c674dbbe0d6c3a61928406eba930"
+  },
+  {
+    "email": "emailverify_1774943227@example.com",
+    "is_active": 0,
+    "verification_token": "df30ee7ce6b82ed3c578c6d1264852c422551016aa618919ef97aa13d2821005"
+  },
+  {
+    "email": "uimsgcheck_1774943239@test.com",
+    "is_active": 0,
+    "verification_token": "74a17f2e8b7aefb4ad9259b914b9b97e2152033f14486a63860fd6b7afd8e4f8"
+  },
+  {
+    "email": "unverified@example.com",
+    "is_active": 1,
+    "verification_token": "valid_token_here"
+  },
+  {
+    "email": "newplayer_1774943802@test.com",
+    "is_active": 0,
+    "verification_token": "740891336d1d2c50715d6625b9b41915d899238be32bf0c92ceeeede7bb3c832"
+  },
+  {
+    "email": "newplayer_1774943809@test.com",
+    "is_active": 0,
+    "verification_token": "dc9eb1ee08999bf5d5375d8b4665015c1f485c567b02e2272a344bd34e017bf7"
+  },
+  {
+    "email": "hashtest_1774943833@example.com",
+    "is_active": 0,
+    "verification_token": "bec40958f03a9358ef00adcb0aa38a4792d5fc0c5cb60973149fafd58ff66333"
+  },
+  {
+    "email": "checkpass_1774943841@test.com",
+    "is_active": 0,
+    "verification_token": "27787ebf83eae12f536d37b07846106e757b7f012d6616e3dea0002b394d3ee4"
+  },
+  {
+    "email": "emailverify_1774943849@example.com",
+    "is_active": 0,
+    "verification_token": "0cc8032d799d7ca439fe34d38c2b341731a3f8f53f109914a11c99877a3f1672"
+  },
+  {
+    "email": "linkcheck_1774943860@test.com",
+    "is_active": 0,
+    "verification_token": "1dbeb43c3af773aa18f1568720341ba525146e5580aebf91e634375dc8c35045"
+  },
+  {
+    "email": "uimsgcheck_1774943868@test.com",
+    "is_active": 0,
+    "verification_token": "29ca3facdac5b4d4e9461baeb2161ed81367a7113eb37e3c8eeff39290d8e3fa"
+  },
+  {
+    "email": "unverified_login@example.com",
+    "is_active": 0,
+    "verification_token": "testing_unverified_login"
+  },
+  {
+    "email": "newplayer_1774948035@test.com",
+    "is_active": 0,
+    "verification_token": "2febdb220df0aa8a2828395f28bb085e4f60fca28f0d7b8ac7c1ab5a44887285"
+  },
+  {
+    "email": "newplayer_1774948039@test.com",
+    "is_active": 0,
+    "verification_token": "bda7ae4f35f732ce3b04aedbe913dc13ec3297a8570667a6866299447b1ffa78"
+  },
+  {
+    "email": "hashtest_1774948050@example.com",
+    "is_active": 0,
+    "verification_token": "8c7c109ba36f319a04175df67c4d52ed12287df03a78d92a142cf9ff3cf8af24"
+  },
+  {
+    "email": "checkpass_1774948052@test.com",
+    "is_active": 0,
+    "verification_token": "3d8b6093ffdb214316eea56b9921d38ebcb34403e3c9e9e9c0fe273fa080bd52"
+  },
+  {
+    "email": "emailverify_1774948055@example.com",
+    "is_active": 0,
+    "verification_token": "54dd8ea4e4f8e3a804cfd591b871a16b06d47df44237caa06ad7c5208c17ef7c"
+  },
+  {
+    "email": "linkcheck_1774948061@test.com",
+    "is_active": 0,
+    "verification_token": "d51b895ef97526997c6a44d47bff74974c3d19b67b4adc3966ef6470f3368b7f"
+  },
+  {
+    "email": "uimsgcheck_1774948064@test.com",
+    "is_active": 0,
+    "verification_token": "c7ed03b764fa48407333f7a75f94849e29641811c5c7cf36dfa3d3ca6ea3b959"
+  },
+  {
+    "email": "newplayer_1774948780@test.com",
+    "is_active": 0,
+    "verification_token": "cea680a3baba94f77a7c5e27d588ff5df7951873681fea5ab331d802c0602771"
+  },
+  {
+    "email": "newplayer_1774948784@test.com",
+    "is_active": 0,
+    "verification_token": "1486d0570efa00bbedccbc5d9bfe9f65216a970a503c6c238cabfb812fee3af6"
+  },
+  {
+    "email": "hashtest_1774948799@example.com",
+    "is_active": 0,
+    "verification_token": "4734f774a136a29da4f2d6d17f5bc448bbe73412975f667753c0e0e0d9b994c3"
+  },
+  {
+    "email": "checkpass_1774948802@test.com",
+    "is_active": 0,
+    "verification_token": "14c5a64a0901b244a523f0d8f6e8bd6224c11d81514cd66bb66597f746f09472"
+  },
+  {
+    "email": "emailverify_1774948805@example.com",
+    "is_active": 0,
+    "verification_token": "0b089091bcc5258a4bbfb9bf0d35f11d47829fb78d4d5ce766f31b4fdb666fff"
+  },
+  {
+    "email": "linkcheck_1774948813@test.com",
+    "is_active": 0,
+    "verification_token": "9fb5c5f0b3468bfc3e96497828ea3c37e3c8e69b61f8531616cca14e12a888b3"
+  },
+  {
+    "email": "uimsgcheck_1774948816@test.com",
+    "is_active": 0,
+    "verification_token": "9cdc0460c0c6028a60b56c62a4ef4d797af2b6ed85c8f8a76c4c8287f99f023a"
+  },
+  {
+    "email": "unverified_template@example.com",
+    "is_active": 0,
+    "verification_token": "{{verification_token}}"
+  },
+  {
+    "email": "newplayer_1774949195@test.com",
+    "is_active": 0,
+    "verification_token": "6d0e4e4c5b2f7b4bce3ef5d9ca6976e47dbd77f712004cfd9311e6ae3b8afc3e"
+  },
+  {
+    "email": "newplayer_1774949199@test.com",
+    "is_active": 0,
+    "verification_token": "24875fcbb5c045a87d08ba0a55763ea61256ea3023dc69e714f6560e3a0e9b3d"
+  },
+  {
+    "email": "hashtest_1774949211@example.com",
+    "is_active": 0,
+    "verification_token": "e1681afe607c2e1afa2aee4ac68c797012b9ec84e65b662044672c3b75dfdee6"
+  },
+  {
+    "email": "checkpass_1774949213@test.com",
+    "is_active": 0,
+    "verification_token": "9171432847349768d046a52e5a66ca40ee51fc2cf2849d3a436d34708cc06976"
+  },
+  {
+    "email": "emailverify_1774949216@example.com",
+    "is_active": 0,
+    "verification_token": "668665c6ebfef3f5741229cf3fe6b13d7989e283396ac54f7b81549fe0bee90b"
+  },
+  {
+    "email": "linkcheck_1774949223@test.com",
+    "is_active": 0,
+    "verification_token": "185c641d726d9d25ca00e5ac088c6c8d9197a2deccb1392606c0f3c2e65fca92"
+  },
+  {
+    "email": "uimsgcheck_1774949225@test.com",
+    "is_active": 0,
+    "verification_token": "8bbc8da1e45429ffa993da19ba934f1c43016ee08f0bdf3af97a1714fd03df6b"
+  },
+  {
+    "email": "newplayer_1774949427@test.com",
+    "is_active": 0,
+    "verification_token": "77980c3e89df970d355297d602c73f7682eecaef512af41f449d9ef214d4d29d"
+  },
+  {
+    "email": "newplayer_1774949430@test.com",
+    "is_active": 0,
+    "verification_token": "d74568dc148c406250aa464e2ef2483605738ff8d4c6f24afed3d69c5d76aec6"
+  },
+  {
+    "email": "hashtest_1774949442@example.com",
+    "is_active": 0,
+    "verification_token": "9a63da593d7093550bdc36285cf222e2177b4e2c35a52b529a991d2d0f30c3b2"
+  },
+  {
+    "email": "checkpass_1774949445@test.com",
+    "is_active": 0,
+    "verification_token": "0440414a58b9c5ede1430b0180d543837c8e717972d4bf20e3aab3ac3a821eff"
+  },
+  {
+    "email": "emailverify_1774949447@example.com",
+    "is_active": 0,
+    "verification_token": "dec16c768a5e5734b81d985ce9b9fffd041bb716dfa1479f751184d707e2a2e6"
+  },
+  {
+    "email": "linkcheck_1774949456@test.com",
+    "is_active": 0,
+    "verification_token": "ae09ae2747971f45050098ef33341129fa4c277e457705f4ae6c30a4f7d53635"
+  },
+  {
+    "email": "uimsgcheck_1774949459@test.com",
+    "is_active": 0,
+    "verification_token": "216854cb517c25f99f0bed6282c0f84aa09bf27d87ed56f8143b53ed6148fef7"
+  }
+]

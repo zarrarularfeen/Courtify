@@ -1,0 +1,14 @@
+$kind: http-request
+name: 'TC-LST-002 — Arena List Not Empty'
+method: GET
+url: '{{base_url}}/arenas'
+order: 2000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LST-002: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-LST-002: Arena list is not empty", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("array").that.is.not.empty;
+      });

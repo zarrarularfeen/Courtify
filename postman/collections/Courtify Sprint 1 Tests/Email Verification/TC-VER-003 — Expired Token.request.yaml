@@ -1,0 +1,19 @@
+$kind: http-request
+name: 'TC-VER-003 — Expired Token'
+method: GET
+url: '{{base_url}}/auth/verify-email'
+order: 3000
+queryParams:
+  - key: token
+    value: expired_token_abc
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-VER-003: Status is 400 or 410", () => {
+          pm.expect(pm.response.code).to.be.oneOf([400, 410]);
+      });
+      pm.test("TC-VER-003: Response contains expired token error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/expired|token.*expired|link.*expired/i);
+      });

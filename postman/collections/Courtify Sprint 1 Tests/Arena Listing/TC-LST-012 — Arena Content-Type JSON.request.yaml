@@ -1,0 +1,13 @@
+$kind: http-request
+name: 'TC-LST-012 — Arena Content-Type JSON'
+method: GET
+url: '{{base_url}}/arenas'
+order: 12000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LST-012: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-LST-012: Content-Type is application/json", () => {
+          pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+      });

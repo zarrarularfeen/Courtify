@@ -1,0 +1,28 @@
+$kind: http-request
+name: 'TC-OWN-005 — Invalid Price Value'
+method: POST
+url: '{{base_url}}/arenas'
+order: 5000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{owner_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "name": "Bad Price Arena",
+      "location": "Lahore",
+      "sports": ["cricket"],
+      "pricePerHour": -500
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-OWN-005: Status is 400", () => pm.response.to.have.status(400));
+      pm.test("TC-OWN-005: Response contains invalid price error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/invalid.*price|price.*invalid|price.*positive/i);
+      });

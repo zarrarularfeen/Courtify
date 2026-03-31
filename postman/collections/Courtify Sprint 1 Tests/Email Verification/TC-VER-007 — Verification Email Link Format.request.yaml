@@ -1,0 +1,38 @@
+$kind: http-request
+name: 'TC-VER-007 — Verification Email Link Format'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 7000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "linkcheck_{{$timestamp}}@test.com",
+      "password": "Pass@1234",
+      "name": "Link Check User",
+      "phone": "03001234999",
+      "userType": "player"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-VER-007: Verification email contains correctly formatted link
+      // This registers a new user and confirms the API responds with 201.
+      // The actual email link format must be verified by opening the received email.
+      pm.test("TC-VER-007: Status is 201 Created (registration triggers email)", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("TC-VER-007: Success message confirms email was sent", function () {
+          const json = pm.response.json();
+          pm.expect(json.message.toLowerCase()).to.include("verify");
+      });
+
+      // Manual step: Open the email received at linkcheck@test.com
+      // Expected link format: http://localhost:5000/auth/verify?token=<64-char-hex>
+      // The token should be exactly 64 hexadecimal characters
+      console.log("TC-VER-007: Check email at linkcheck@test.com — link must match: http://localhost:5000/auth/verify?token=<64-char-hex>");

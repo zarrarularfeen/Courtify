@@ -1,0 +1,19 @@
+$kind: http-request
+name: 'TC-OWN-006 — Arena Linked to Owner'
+method: GET
+url: '{{base_url}}/arenas/{{created_arena_id}}'
+order: 6000
+headers:
+  - key: Authorization
+    value: 'Bearer {{owner_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-OWN-006: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-OWN-006: Arena is linked to owner", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.satisfy(body =>
+              body.hasOwnProperty("ownerId") || body.hasOwnProperty("owner_id") || body.hasOwnProperty("owner")
+          );
+      });

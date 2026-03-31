@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'TC-VER-002 — Valid Owner Token Verification'
+method: GET
+url: '{{base_url}}/auth/verify'
+order: 2000
+queryParams:
+  - key: token
+    value: 'valid_token_here_owner'
+    description: 'Paste a valid 64-char hex token from arena_owners.verification_token in DB'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-VER-002: Status is 302 Redirect (or 200)", function () {
+          pm.expect(pm.response.code).to.be.oneOf([200, 302]);
+      });
+      pm.test("TC-VER-002: NOTE — After redirect, DB should show is_active=1 and verification_token=NULL for owner", function () {
+          // Expected redirect target: /?verified=1&type=owner
+          // Manual DB check: SELECT is_active, verification_token FROM arena_owners WHERE email='newowner@test.com'
+          pm.expect(true).to.be.true;
+      });

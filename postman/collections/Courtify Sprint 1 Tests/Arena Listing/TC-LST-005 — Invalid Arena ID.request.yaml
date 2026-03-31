@@ -1,0 +1,14 @@
+$kind: http-request
+name: 'TC-LST-005 — Invalid Arena ID'
+method: GET
+url: '{{base_url}}/arenas/99999'
+order: 5000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LST-005: Status is 404", () => pm.response.to.have.status(404));
+      pm.test("TC-LST-005: Response contains not found message", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/not found|arena.*not.*exist/i);
+      });

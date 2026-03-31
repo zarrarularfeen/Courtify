@@ -1,0 +1,27 @@
+$kind: http-request
+name: 'TC-REG-005 — Invalid Email Format'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 5000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "notanemail",
+      "password": "Pass@1234",
+      "userType": "player"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-REG-005: Status is 400 Bad Request", function () {
+          pm.response.to.have.status(400);
+      });
+      pm.test("TC-REG-005: Error message indicates invalid email format", function () {
+          const json = pm.response.json();
+          pm.expect(json.error || json.message).to.include("Invalid email format");
+      });

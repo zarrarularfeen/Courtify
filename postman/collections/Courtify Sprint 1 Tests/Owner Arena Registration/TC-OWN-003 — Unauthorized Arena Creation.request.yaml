@@ -1,0 +1,28 @@
+$kind: http-request
+name: 'TC-OWN-003 — Unauthorized Arena Creation'
+method: POST
+url: '{{base_url}}/arenas'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Unauthorized Arena",
+      "location": "Lahore",
+      "sports": ["cricket"],
+      "pricePerHour": 1500
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-OWN-003: Status is 401 or 403", () => {
+          pm.expect(pm.response.code).to.be.oneOf([401, 403]);
+      });
+      pm.test("TC-OWN-003: Response contains unauthorized error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/unauthorized|forbidden|not.*authenticated/i);
+      });

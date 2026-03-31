@@ -1,0 +1,27 @@
+$kind: http-request
+name: 'TC-REG-004 — Duplicate Owner Email'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "newowner@test.com",
+      "password": "AnyPass123",
+      "userType": "owner"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-REG-004: Status is 409 Conflict", function () {
+          pm.response.to.have.status(409);
+      });
+      pm.test("TC-REG-004: Error message indicates duplicate email", function () {
+          const json = pm.response.json();
+          pm.expect(json.error || json.message).to.include("Email already registered");
+      });

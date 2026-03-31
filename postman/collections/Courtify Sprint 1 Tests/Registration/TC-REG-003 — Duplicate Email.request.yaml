@@ -1,0 +1,26 @@
+$kind: http-request
+name: 'TC-REG-003 — Duplicate Email'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Duplicate User",
+      "email": "testplayer@example.com",
+      "password": "12345678",
+      "userType": "player"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-REG-003: Status is 409 (Conflict)", () => pm.response.to.have.status(409));
+      pm.test("TC-REG-003: Response contains duplicate email error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/already exists|duplicate|email.*taken/i);
+      });

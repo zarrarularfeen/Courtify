@@ -1,0 +1,17 @@
+$kind: http-request
+name: 'TC-SCH-004 — No Results for Unknown Search'
+method: GET
+url: '{{base_url}}/arenas'
+order: 4000
+queryParams:
+  - key: search
+    value: xyznonexistentarena123
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-SCH-004: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-SCH-004: Response is an empty array for unknown search", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("array").that.is.empty;
+      });

@@ -1,0 +1,14 @@
+$kind: http-request
+name: 'TC-LST-001 — Get All Arenas'
+method: GET
+url: '{{base_url}}/arenas'
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-LST-001: Status is 200", () => pm.response.to.have.status(200));
+      pm.test("TC-LST-001: Response is an array", () => {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("array");
+      });

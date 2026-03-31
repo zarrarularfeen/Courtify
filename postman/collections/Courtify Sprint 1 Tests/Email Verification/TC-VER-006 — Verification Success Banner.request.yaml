@@ -1,0 +1,29 @@
+$kind: http-request
+name: 'TC-VER-006 — Verification Success Banner (Frontend)'
+method: GET
+url: '{{frontend_url}}/'
+order: 6000
+queryParams:
+  - key: verified
+    value: '1'
+  - key: type
+    value: player
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-VER-006: Dashboard shows success banner after verification redirect
+      // This hits the frontend URL that the backend redirects to after successful verification.
+      // Expected: The page HTML contains a success message about email verification.
+      pm.test("TC-VER-006: Frontend page loads (200 OK)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("TC-VER-006: Response is HTML (frontend served)", function () {
+          pm.expect(pm.response.headers.get("Content-Type")).to.include("text/html");
+      });
+
+      // Note: The actual banner text is rendered by React — inspect in browser at:
+      // http://localhost:5173/?verified=1&type=player
+      // Expected UI message: "Email verified! You can now log in."
+      console.log("TC-VER-006: Open http://localhost:5173/?verified=1&type=player in browser to verify success banner");

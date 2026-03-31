@@ -1,0 +1,23 @@
+$kind: http-request
+name: 'TC-REG-004 — Missing Required Fields'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "incomplete@example.com"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("TC-REG-004: Status is 400", () => pm.response.to.have.status(400));
+      pm.test("TC-REG-004: Response contains validation error", () => {
+          const body = pm.response.text();
+          pm.expect(body).to.match(/required|missing|invalid/i);
+      });

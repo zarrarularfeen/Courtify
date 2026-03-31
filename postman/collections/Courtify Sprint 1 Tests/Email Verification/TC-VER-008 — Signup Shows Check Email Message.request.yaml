@@ -1,0 +1,39 @@
+$kind: http-request
+name: 'TC-VER-008 — Signup Shows Check Email Message'
+method: POST
+url: '{{base_url}}/auth/signup'
+order: 8000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "uimsgcheck_{{$timestamp}}@test.com",
+      "password": "Pass@1234",
+      "name": "UI Message Test",
+      "phone": "03009990000",
+      "userType": "player"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // TC-VER-008: Signup page shows "check your email" message after registration
+      pm.test("TC-VER-008: Status is 201 Created", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("TC-VER-008: API response message prompts email check", function () {
+          const json = pm.response.json();
+          const msg = json.message.toLowerCase();
+          // Message should contain "check" or "email" or "verify"
+          pm.expect(msg).to.satisfy(function(m) {
+              return m.includes("check") || m.includes("email") || m.includes("verify");
+          }, "Expected message to mention checking email or verification");
+      });
+
+      // Manual step: Observe the frontend UI at http://localhost:5173/signup after submitting
+      // Expected: "Check your email to verify" message displayed on the signup page
+      console.log("TC-VER-008: Verify frontend shows 'Check your email to verify' after form submission");
