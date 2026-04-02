@@ -1,1 +1,0 @@
-url: https://drawsql.app/teams/courtify/diagrams/courtifydb
