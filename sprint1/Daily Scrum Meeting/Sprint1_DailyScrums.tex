@@ -1,0 +1,521 @@
+\documentclass[12pt,a4paper]{article}
+
+% ─── Packages ───────────────────────────────────────────────────────────────
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{enumitem}
+
+% ─── Colors ─────────────────────────────────────────────────────────────────
+\definecolor{headerbg}{RGB}{31,73,125}
+\definecolor{headertext}{RGB}{255,255,255}
+\definecolor{rowgray}{RGB}{242,242,242}
+\definecolor{passgreen}{RGB}{0,128,0}
+\definecolor{failred}{RGB}{192,0,0}
+\definecolor{sectionblue}{RGB}{31,73,125}
+
+% ─── Hyperref Setup ──────────────────────────────────────────────────────────
+\hypersetup{
+    colorlinks=true,
+    linkcolor=sectionblue,
+    urlcolor=sectionblue,
+    pdftitle={Courtify Sprint 1 Daily Scrums},
+    pdfauthor={Shaheer, Yousuf, Zarrar, Wasiq}
+}
+
+% ─── Section Formatting ──────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{sectionblue}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{sectionblue}}{}{0em}{}
+
+% ─── Header / Footer ─────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small Courtify -- Sprint 1 Daily Scrums}
+\lhead{\small Version 1.0}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+% ════════════════════════════════════════════════════════════════════════════
+
+% ─── Title Page ──────────────────────────────────────────────────────────────
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Huge\bfseries\color{sectionblue} Courtify}\par
+\vspace{0.4cm}
+{\Large Sports Arena Booking Platform}\par
+\vspace{1.5cm}
+{\huge Sprint 1 -- Daily Scrum Meetings}\par
+\vspace{2cm}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\bfseries}l p{10cm}}
+Project     & Courtify -- Sports Arena Booking Platform \\
+Sprint      & 1 \\
+Dates       & March 17, 2026 -- March 31, 2026 \\
+Scrum Master& Zarrar \\
+Prepared By & Shaheer, Yousuf, Zarrar, Wasiq \\
+Version     & 1.0 \\
+\end{tabular}
+\end{titlepage}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Meeting Format}
+% ═══════════════════════════════════════════════════════════════════════════
+
+Each member answers the following three questions during the Daily Scrum:
+\begin{itemize}[noitemsep]
+    \item (1) What did I do yesterday?
+    \item (2) What will I do today?
+    \item (3) Any blockers?
+\end{itemize}
+
+\vspace{1.5em}
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Daily Scrums}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\subsection*{Day 1 --- Monday, March 17 (Sprint Kickoff)}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} ---
+    \item \textbf{Today:} Set up the database connection and start working on the backend structure.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} ---
+    \item \textbf{Today:} Create the Github repository and set up basic login structure.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} ---
+    \item \textbf{Today:} Start the frontend project and create early files.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} ---
+    \item \textbf{Today:} Plan out how the navigation bar will look.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 2 --- Tuesday, March 18}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Set up the database.
+    \item \textbf{Today:} Create tables for players and arena owners.
+    \item \textbf{Blockers:} Having some trouble connecting to the database on my laptop.
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Repository is up.
+    \item \textbf{Today:} Busy with another course assignment today.
+    \item \textbf{Blockers:} Time constraint due to other courses.
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Frontend project started.
+    \item \textbf{Today:} Work on the layout for the signup page.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Navigation bar planned.
+    \item \textbf{Today:} Add buttons to the navigation bar.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 3 --- Wednesday, March 19}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Tables created for users.
+    \item \textbf{Today:} Add testing data to the database.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy.
+    \item \textbf{Today:} Continue working on the login connection with frontend.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Signup page layout mostly done.
+    \item \textbf{Today:} Finish up the signup form fields.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Navigation bar added.
+    \item \textbf{Today:} Busy with midterm preparation.
+    \item \textbf{Blockers:} Midterms coming up.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 4 --- Saturday, March 22}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Testing data added.
+    \item \textbf{Today:} Work on the user registration system.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Login connection working partially.
+    \item \textbf{Today:} Work on blocking users who are not verified.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Signup form finished.
+    \item \textbf{Today:} Connect the signup page to the registration system.
+    \item \textbf{Blockers:} Waiting for registration system to be ready.
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy.
+    \item \textbf{Today:} Start making the layout for the login page.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\newpage
+
+\subsection*{Day 5 --- Sunday, March 23}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Registration system almost done.
+    \item \textbf{Today:} Finish registration and start email verification setup.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Unverified users blocked.
+    \item \textbf{Today:} Show a success message when email is verified.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Connected signup.
+    \item \textbf{Today:} Busy with project for another class.
+    \item \textbf{Blockers:} Other coursework.
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Login page layout done.
+    \item \textbf{Today:} Add styling to the login page.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 6 --- Monday, March 24}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Email verification setup done.
+    \item \textbf{Today:} Make sure the email is properly sent to the user on registration.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Verification message added.
+    \item \textbf{Today:} Test the whole signup and login flow.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy.
+    \item \textbf{Today:} Help Wasiq connect the login page to the system.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Login page styled.
+    \item \textbf{Today:} Connect login page to the system.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 7 --- Tuesday, March 25}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Email sending is working.
+    \item \textbf{Today:} Start working on fetching arenas from the database.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Tested the signup flow, found a small bug with categories.
+    \item \textbf{Today:} Fix the bug where wrong sports were showing up.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Login page connected.
+    \item \textbf{Today:} Start making cards to show arenas.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Login page fully working.
+    \item \textbf{Today:} Busy with quizzes.
+    \item \textbf{Blockers:} Quizzes.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 8 --- Wednesday, March 26}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Arenas fetching works.
+    \item \textbf{Today:} Work on owner's side of adding arenas.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Category bug fixed.
+    \item \textbf{Today:} Build a search bar to find arenas.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Arena cards designed.
+    \item \textbf{Today:} Put the arena cards on the main dashboard.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy.
+    \item \textbf{Today:} Make the form for owners to add their facilities.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\newpage
+
+\subsection*{Day 9 --- Thursday, March 27}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Owner adding arenas is done.
+    \item \textbf{Today:} Add more arenas to test everything out.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Search bar done.
+    \item \textbf{Today:} Test all features together.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Dashboard with arenas is done.
+    \item \textbf{Today:} Make a page to show details of a specific arena.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Facility form made.
+    \item \textbf{Today:} Connect facility form to the main system.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 10 --- Friday, March 28}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} All arenas tested.
+    \item \textbf{Today:} Preparing the system for the final review.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Testing done.
+    \item \textbf{Today:} Busy with assignments.
+    \item \textbf{Blockers:} Other coursework.
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Detailed arena page is done.
+    \item \textbf{Today:} Fix up the design and spacing on the pages.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Facility form connected.
+    \item \textbf{Today:} Check if everything looks good visually.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 11 --- Monday, March 30}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Ready for review.
+    \item \textbf{Today:} Prepare what to present in the sprint review.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy.
+    \item \textbf{Today:} Write up the documentation for our work.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Design looks good.
+    \item \textbf{Today:} Practice the project presentation.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Visual checks done.
+    \item \textbf{Today:} Help with the presentation practice.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Day 12 --- Tuesday, March 31 (Sprint End)}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Sprint review prepared.
+    \item \textbf{Today:} Do the sprint review.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Documentation ready.
+    \item \textbf{Today:} Submit sprint work.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Practiced presentation.
+    \item \textbf{Today:} Think about what to do in the next sprint.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Presentation practiced.
+    \item \textbf{Today:} Gather feedback and relax for a bit.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Sprint 1 Timeline at a Glance}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|c|l|X|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries Day & \color{white}\bfseries Date & \color{white}\bfseries Key Milestone \\ \hline
+1 & Mar 17 & Starting the project \\ \hline
+\rowcolor{rowgray} 2 & Mar 18 & Database setup started \\ \hline
+3 & Mar 19 & Signup form layout \\ \hline
+\rowcolor{rowgray} 4 & Mar 22 & Registration system \\ \hline
+5 & Mar 23 & Email verification setup \\ \hline
+\rowcolor{rowgray} 6 & Mar 24 & Email sending working \\ \hline
+7 & Mar 25 & Bug fixes \\ \hline
+\rowcolor{rowgray} 8 & Mar 26 & Search bar and forms \\ \hline
+9 & Mar 27 & Testing everything \\ \hline
+\rowcolor{rowgray} 10 & Mar 28 & Polishing design \\ \hline
+11 & Mar 30 & Preparing for review \\ \hline
+\rowcolor{rowgray} 12 & Mar 31 & Sprint review \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+\begin{center}
+\textit{Prepared by the Courtify Sprint 1 team -- Shaheer, Yousuf, Zarrar, Wasiq}
+\end{center}
+
+\end{document}
