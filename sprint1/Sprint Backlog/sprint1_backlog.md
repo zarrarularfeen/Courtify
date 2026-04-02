@@ -39,14 +39,14 @@
 
 | # | Task | Owner | Status |
 |---|------|-------|--------|
-| 1 | Initialize Vite + React frontend | Yousuf | Done |
-| 2 | Initialize Express backend (ESM) | Zarrar | Done |
-| 3 | Configure MySQL connection pool | Zarrar | Done |
-| 4 | Set up .env and shared secrets | Shaheer | Done |
-| 5 | Implement AuthContext (login/logout state) | Shaheer | Done |
-| 6 | Build NavBar component | Wasiq | Done |
-| 7 | Configure React Router and base routes | Yousuf | Done |
-| 8 | Write initial SQL schema | Zarrar | Done |
+| 1 | Set up the frontend project | Yousuf | Done |
+| 2 | Set up the backend server | Zarrar | Done |
+| 3 | Connect the database | Zarrar | Done |
+| 4 | Set up project settings | Shaheer | Done |
+| 5 | Create login and logout state | Shaheer | Done |
+| 6 | Create the navigation bar | Wasiq | Done |
+| 7 | Create basic pages and routing | Yousuf | Done |
+| 8 | Write initial database tables | Zarrar | Done |
 
 ---
 
@@ -61,9 +61,9 @@
 | # | Task | Owner | Status |
 |---|------|-------|--------|
 | 1 | Build registration form UI | Wasiq | Done |
-| 2 | Implement POST /auth/signup endpoint | Zarrar | Done |
-| 3 | Add bcrypt password hashing | Zarrar | Done |
-| 4 | Add email format and duplicate validation | Zarrar | Done |
+| 2 | Create the user registration system | Zarrar | Done |
+| 3 | Make sure passwords are secure | Zarrar | Done |
+| 4 | Check if email format is correct | Zarrar | Done |
 
 ---
 
@@ -77,11 +77,11 @@
 
 | # | Task | Owner | Status |
 |---|------|-------|--------|
-| 1 | Configure Nodemailer (Gmail SMTP) | Zarrar | Done |
-| 2 | Implement GET /auth/verify endpoint | Zarrar | Done |
-| 3 | Integrate email send on signup | Zarrar | Done |
+| 1 | Set up email sending | Zarrar | Done |
+| 2 | Create email verification system | Zarrar | Done |
+| 3 | Send email when user registers | Zarrar | Done |
 | 4 | Show post-signup "check your email" message | Yousuf | Done |
-| 5 | Handle ?verified=1 redirect on Dashboard | Yousuf | Done |
+| 5 | Show verification success message | Yousuf | Done |
 | 6 | Block login for unverified accounts | Shaheer | Done |
 
 ---
@@ -97,9 +97,9 @@
 | # | Task | Owner | Status |
 |---|------|-------|--------|
 | 1 | Build login form with Player/Owner toggle | Wasiq | Done |
-| 2 | Implement GET /auth/validate endpoint | Zarrar | Done |
-| 3 | Persist session in AuthContext | Shaheer | Done |
-| 4 | Redirect owners to /owner/dashboard | Shaheer | Done |
+| 2 | Create user login system | Zarrar | Done |
+| 3 | Keep user logged in | Shaheer | Done |
+| 4 | Redirect owners to dashboard | Shaheer | Done |
 
 ---
 
@@ -113,12 +113,12 @@
 
 | # | Task | Owner | Status |
 |---|------|-------|--------|
-| 1 | Implement GET /arenas with thumbnail | Zarrar | Done |
-| 2 | Implement GET /arena/:id with grouped courts | Zarrar | Done |
-| 3 | Seed correct court_types (Padel, Tennis, Badminton, Futsal) | Zarrar | Done |
-| 4 | Build VenueCard component | Wasiq | Done |
+| 1 | Show arenas list | Zarrar | Done |
+| 2 | Show arena details | Zarrar | Done |
+| 3 | Add testing data for arenas | Zarrar | Done |
+| 4 | Create arena display card | Wasiq | Done |
 | 5 | Build venue detail page | Yousuf | Done |
-| 6 | Fix sport-type mismatch bug (e.g. Swimming Pool showing) | Shaheer | Done |
+| 6 | Fix bug with wrong sports showing | Shaheer | Done |
 | 7 | Verify correct types display across all arenas | Shaheer | Done |
 
 ---
@@ -133,8 +133,8 @@
 
 | # | Task | Owner | Status |
 |---|------|-------|--------|
-| 1 | Build SearchBar with real-time name/city filter | Wasiq | Done |
-| 2 | Sport-type filter chips | Yousuf | Deferred |
+| 1 | Build search real-time filter | Wasiq | Done |
+| 2 | Sport filter options | Yousuf | Deferred |
 | 3 | Price range filter | Yousuf | Deferred |
 
 ---
@@ -149,9 +149,9 @@
 
 | # | Task | Owner | Status |
 |---|------|-------|--------|
-| 1 | Implement POST /arenas endpoint | Zarrar | Done |
+| 1 | Create system to add new arenas | Zarrar | Done |
 | 2 | Build facility registration form | Wasiq | Done |
-| 3 | Guard route to owners only | Shaheer | Done |
+| 3 | Make sure only owners can add arenas | Shaheer | Done |
 
 ---
 
@@ -171,8 +171,8 @@
 ---
 
 ## Carry-over to Sprint 2
-- Sport-type and price filters
-- OTP code-based verification (replace link-based)
+- Sport and price filters
+- OTP code-based verification
 - Forgot Password flow
 - Admin panel (abuse reports)
 - Court owner ads placement

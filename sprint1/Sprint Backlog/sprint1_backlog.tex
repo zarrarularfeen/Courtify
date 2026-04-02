@@ -113,14 +113,14 @@ Yousuf & Team Member \\ \hline
 \begin{tabularx}{\textwidth}{|c|X|l|l|}
 \hline
 \rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
-1 & Initialize Vite + React frontend & Yousuf & Done \\ \hline
-\rowcolor{rowgray} 2 & Initialize Express backend (ESM) & Zarrar & Done \\ \hline
-3 & Configure MySQL connection pool & Zarrar & Done \\ \hline
-\rowcolor{rowgray} 4 & Set up .env and shared secrets & Shaheer & Done \\ \hline
-5 & Implement AuthContext (login/logout state) & Shaheer & Done \\ \hline
-\rowcolor{rowgray} 6 & Build NavBar component & Wasiq & Done \\ \hline
-7 & Configure React Router and base routes & Yousuf & Done \\ \hline
-\rowcolor{rowgray} 8 & Write initial SQL schema & Zarrar & Done \\ \hline
+1 & Set up the frontend project & Yousuf & Done \\ \hline
+\rowcolor{rowgray} 2 & Set up the backend server & Zarrar & Done \\ \hline
+3 & Connect the database & Zarrar & Done \\ \hline
+\rowcolor{rowgray} 4 & Set up project settings & Shaheer & Done \\ \hline
+5 & Create login and logout state & Shaheer & Done \\ \hline
+\rowcolor{rowgray} 6 & Create the navigation bar & Wasiq & Done \\ \hline
+7 & Create basic pages and routing & Yousuf & Done \\ \hline
+\rowcolor{rowgray} 8 & Write initial database tables & Zarrar & Done \\ \hline
 \end{tabularx}
 
 \vspace{1.5em}
@@ -138,9 +138,9 @@ Yousuf & Team Member \\ \hline
 \hline
 \rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
 1 & Build registration form UI & Wasiq & Done \\ \hline
-\rowcolor{rowgray} 2 & Implement POST /auth/signup endpoint & Zarrar & Done \\ \hline
-3 & Add bcrypt password hashing & Zarrar & Done \\ \hline
-\rowcolor{rowgray} 4 & Add email format and duplicate validation & Zarrar & Done \\ \hline
+\rowcolor{rowgray} 2 & Create the user registration system & Zarrar & Done \\ \hline
+3 & Make sure passwords are secure & Zarrar & Done \\ \hline
+\rowcolor{rowgray} 4 & Check if email format is correct & Zarrar & Done \\ \hline
 \end{tabularx}
 
 \vspace{1.5em}
@@ -157,11 +157,11 @@ Yousuf & Team Member \\ \hline
 \begin{tabularx}{\textwidth}{|c|X|l|l|}
 \hline
 \rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
-1 & Configure Nodemailer (Gmail SMTP) & Zarrar & Done \\ \hline
-\rowcolor{rowgray} 2 & Implement GET /auth/verify endpoint & Zarrar & Done \\ \hline
-3 & Integrate email send on signup & Zarrar & Done \\ \hline
+1 & Set up email sending & Zarrar & Done \\ \hline
+\rowcolor{rowgray} 2 & Create email verification system & Zarrar & Done \\ \hline
+3 & Send email when user registers & Zarrar & Done \\ \hline
 \rowcolor{rowgray} 4 & Show post-signup ``check your email'' message & Yousuf & Done \\ \hline
-5 & Handle ?verified=1 redirect on Dashboard & Yousuf & Done \\ \hline
+5 & Show verification success message & Yousuf & Done \\ \hline
 \rowcolor{rowgray} 6 & Block login for unverified accounts & Shaheer & Done \\ \hline
 \end{tabularx}
 
@@ -180,9 +180,9 @@ Yousuf & Team Member \\ \hline
 \hline
 \rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
 1 & Build login form with Player/Owner toggle & Wasiq & Done \\ \hline
-\rowcolor{rowgray} 2 & Implement GET /auth/validate endpoint & Zarrar & Done \\ \hline
-3 & Persist session in AuthContext & Shaheer & Done \\ \hline
-\rowcolor{rowgray} 4 & Redirect owners to /owner/dashboard & Shaheer & Done \\ \hline
+\rowcolor{rowgray} 2 & Create user login system & Zarrar & Done \\ \hline
+3 & Keep user logged in & Shaheer & Done \\ \hline
+\rowcolor{rowgray} 4 & Redirect owners to dashboard & Shaheer & Done \\ \hline
 \end{tabularx}
 
 \newpage
@@ -199,12 +199,12 @@ Yousuf & Team Member \\ \hline
 \begin{tabularx}{\textwidth}{|c|X|l|l|}
 \hline
 \rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
-1 & Implement GET /arenas with thumbnail & Zarrar & Done \\ \hline
-\rowcolor{rowgray} 2 & Implement GET /arena/:id with grouped courts & Zarrar & Done \\ \hline
-3 & Seed correct court\_types (Padel, Tennis, Badminton, Futsal) & Zarrar & Done \\ \hline
-\rowcolor{rowgray} 4 & Build VenueCard component & Wasiq & Done \\ \hline
+1 & Show arenas list & Zarrar & Done \\ \hline
+\rowcolor{rowgray} 2 & Show arena details & Zarrar & Done \\ \hline
+3 & Add testing data for arenas & Zarrar & Done \\ \hline
+\rowcolor{rowgray} 4 & Create arena display card & Wasiq & Done \\ \hline
 5 & Build venue detail page & Yousuf & Done \\ \hline
-\rowcolor{rowgray} 6 & Fix sport-type mismatch bug (e.g. Swimming Pool showing) & Shaheer & Done \\ \hline
+\rowcolor{rowgray} 6 & Fix bug with wrong sports showing & Shaheer & Done \\ \hline
 7 & Verify correct types display across all arenas & Shaheer & Done \\ \hline
 \end{tabularx}
 
@@ -222,8 +222,8 @@ Yousuf & Team Member \\ \hline
 \begin{tabularx}{\textwidth}{|c|X|l|l|}
 \hline
 \rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
-1 & Build SearchBar with real-time name/city filter & Wasiq & Done \\ \hline
-\rowcolor{rowgray} 2 & Sport-type filter chips & Yousuf & Deferred \\ \hline
+1 & Build search real-time filter & Wasiq & Done \\ \hline
+\rowcolor{rowgray} 2 & Sport filter options & Yousuf & Deferred \\ \hline
 3 & Price range filter & Yousuf & Deferred \\ \hline
 \end{tabularx}
 
@@ -241,9 +241,9 @@ Yousuf & Team Member \\ \hline
 \begin{tabularx}{\textwidth}{|c|X|l|l|}
 \hline
 \rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
-1 & Implement POST /arenas endpoint & Zarrar & Done \\ \hline
+1 & Create system to add new arenas & Zarrar & Done \\ \hline
 \rowcolor{rowgray} 2 & Build facility registration form & Wasiq & Done \\ \hline
-3 & Guard route to owners only & Shaheer & Done \\ \hline
+3 & Make sure only owners can add arenas & Shaheer & Done \\ \hline
 \end{tabularx}
 
 \vspace{2em}
@@ -271,7 +271,7 @@ PBI-07 & Owner Registration & 5 & Done \\ \hline
 
 \subsection*{Carry-over to Sprint 2}
 \begin{itemize}
-    \item Sport-type and price filters
+    \item Sport and price filters
     \item OTP code-based verification (replace link-based)
     \item Forgot Password flow
     \item Court owner ads placement
