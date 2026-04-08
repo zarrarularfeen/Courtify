@@ -1,7 +1,7 @@
 $kind: http-request
 name: 'TC-REG-001 — Player Signup (Valid)'
 method: POST
-url: 'http://localhost:5000/auth/signup'
+url: '{{base_url}}/auth/signup'
 order: 1000
 headers:
   - key: Content-Type

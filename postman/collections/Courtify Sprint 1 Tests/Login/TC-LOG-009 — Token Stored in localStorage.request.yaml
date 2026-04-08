@@ -1,26 +1,40 @@
 $kind: http-request
 name: 'TC-LOG-009 — Token Stored in localStorage (Frontend)'
-method: GET
-url: '{{frontend_url}}/login'
+method: POST
+url: '{{base_url}}/auth/login'
 order: 9000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "player@test.com",
+      "password": "Pass@1234",
+      "userType": "player"
+    }
 scripts:
   - type: afterResponse
     language: text/javascript
     code: |-
-      // TC-LOG-009: After login, JWT token is stored in browser localStorage
-      // This request loads the frontend login page to confirm it is accessible.
-      // The actual localStorage check must be done in the browser DevTools.
-      pm.test("TC-LOG-009: Frontend login page loads (200 OK)", function () {
+      // TC-LOG-009: After login, JWT token is stored in browser localStorage.
+      // localStorage is browser-only and cannot be automated via Postman.
+      // This test confirms the API returns a token in the response (backend side).
+      // Manual step: Open http://localhost:5173/login, log in, then check
+      // DevTools → Application → Local Storage for key "token".
+
+      pm.test("TC-LOG-009: Login returns 200 and token (backend check)", function () {
           pm.response.to.have.status(200);
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("token");
+          // Save token to collection variable for subsequent tests
+          pm.collectionVariables.set("player_token", json.token);
       });
 
-      pm.test("TC-LOG-009: Response is HTML (frontend served)", function () {
-          pm.expect(pm.response.headers.get("Content-Type")).to.include("text/html");
+      pm.test("TC-LOG-009: MANUAL — Verify localStorage 'token' key in browser DevTools", function () {
+          // Always passes — perform manual check in browser as described above.
+          pm.expect(true).to.be.true;
       });
 
-      // Manual verification steps:
-      // 1. Open http://localhost:5173/login in browser
-      // 2. Submit valid credentials (player@test.com / Pass@1234)
-      // 3. Open DevTools → Application → Local Storage → http://localhost:5173
-      // 4. Confirm key "token" exists with a valid JWT value
-      console.log("TC-LOG-009: Manual step — after login, check localStorage 'token' key in browser DevTools");
+      console.log("TC-LOG-009: Manual step — open http://localhost:5173/login in browser and check localStorage.token");

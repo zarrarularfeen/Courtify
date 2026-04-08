@@ -1,7 +1,7 @@
 $kind: http-request
 name: 'TC-LOG-002 — Owner Login (Valid)'
 method: GET
-url: 'http://localhost:5000/auth/validate'
+url: '{{base_url}}/auth/validate'
 order: 2000
 queryParams:
   - key: email

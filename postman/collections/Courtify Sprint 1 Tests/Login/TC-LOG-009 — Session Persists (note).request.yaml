@@ -1,7 +1,7 @@
 $kind: http-request
 name: 'TC-LOG-009 — Session Persists (note)'
 method: GET
-url: 'http://localhost:5000/auth/validate'
+url: '{{base_url}}/auth/validate'
 order: 9000
 description: 'TC-LOG-009: This test verifies session persistence on page refresh — a frontend/browser test. Run this request to confirm the API returns valid session data, then manually refresh the browser to verify the session is maintained.'
 queryParams:

@@ -1,7 +1,7 @@
 $kind: http-request
 name: 'TC-LOG-006 — Missing Email Param'
 method: GET
-url: 'http://localhost:5000/auth/validate'
+url: '{{base_url}}/auth/validate'
 order: 6000
 queryParams:
   - key: password

@@ -1,7 +1,7 @@
 $kind: http-request
 name: 'TC-VER-001 — Valid Player Token (template)'
 method: GET
-url: 'http://localhost:5000/auth/verify'
+url: '{{base_url}}/auth/verify'
 order: 3000
 description: 'Replace the token value with a valid 64-char hex token from the players table in the DB before running.'
 queryParams:

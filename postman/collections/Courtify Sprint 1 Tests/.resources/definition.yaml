@@ -12,7 +12,7 @@ description: >-
 
   Prepared by: Shaheer, Yousuf, Zarrar, Wasiq
 variables:
-  base_url: http://localhost:5000
+  base_url: {{base_url}}
   frontend_url: http://localhost:5173
   player_email: player@example.com
   player_password: "12345678"

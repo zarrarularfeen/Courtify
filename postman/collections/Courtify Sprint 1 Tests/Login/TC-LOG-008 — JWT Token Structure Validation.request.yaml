@@ -35,7 +35,7 @@ scripts:
           // Decode base64url
           const padding = "=".repeat((4 - payloadBase64.length % 4) % 4);
           const base64 = payloadBase64.replace(/-/g, "+").replace(/_/g, "/") + padding;
-          const payload = JSON.parse(atob(base64));
+          const payload = JSON.parse(Buffer.from(base64, 'base64').toString('utf8'));
           pm.expect(payload).to.have.property("userId");
           console.log("TC-LOG-008: JWT payload:", JSON.stringify(payload));
       });
@@ -45,6 +45,6 @@ scripts:
           const payloadBase64 = json.token.split(".")[1];
           const padding = "=".repeat((4 - payloadBase64.length % 4) % 4);
           const base64 = payloadBase64.replace(/-/g, "+").replace(/_/g, "/") + padding;
-          const payload = JSON.parse(atob(base64));
+          const payload = JSON.parse(Buffer.from(base64, 'base64').toString('utf8'));
           pm.expect(payload).to.have.property("userType");
       });

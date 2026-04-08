@@ -1,7 +1,7 @@
 $kind: http-request
 name: 'TC-LOG-005 — Non-existent Email'
 method: GET
-url: 'http://localhost:5000/auth/validate'
+url: '{{base_url}}/auth/validate'
 order: 5000
 queryParams:
   - key: email

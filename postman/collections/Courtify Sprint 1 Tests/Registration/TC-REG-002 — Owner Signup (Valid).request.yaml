@@ -1,7 +1,7 @@
 $kind: http-request
 name: 'TC-REG-002 — Owner Signup (Valid)'
 method: POST
-url: 'http://localhost:5000/auth/signup'
+url: '{{base_url}}/auth/signup'
 order: 2000
 headers:
   - key: Content-Type

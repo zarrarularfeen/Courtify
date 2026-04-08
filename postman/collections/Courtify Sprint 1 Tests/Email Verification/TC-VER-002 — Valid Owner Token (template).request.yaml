@@ -1,7 +1,7 @@
 $kind: http-request
 name: 'TC-VER-002 — Valid Owner Token (template)'
 method: GET
-url: 'http://localhost:5000/auth/verify'
+url: '{{base_url}}/auth/verify'
 order: 4000
 description: 'Replace the token value with a valid 64-char hex token from the arena_owners table in the DB before running.'
 queryParams:
