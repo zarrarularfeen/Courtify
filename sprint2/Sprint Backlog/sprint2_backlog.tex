@@ -1,0 +1,263 @@
+\documentclass[12pt,a4paper]{article}
+
+% ─── Packages ───────────────────────────────────────────────────────────────
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% ─── Colors ─────────────────────────────────────────────────────────────────
+\definecolor{headerbg}{RGB}{31,73,125}
+\definecolor{headertext}{RGB}{255,255,255}
+\definecolor{rowgray}{RGB}{242,242,242}
+\definecolor{passgreen}{RGB}{0,128,0}
+\definecolor{failred}{RGB}{192,0,0}
+\definecolor{sectionblue}{RGB}{31,73,125}
+
+% ─── Hyperref Setup ──────────────────────────────────────────────────────────
+\hypersetup{
+    colorlinks=true,
+    linkcolor=sectionblue,
+    urlcolor=sectionblue,
+    pdftitle={Courtify Sprint 2 Backlog},
+    pdfauthor={Shaheer, Yousuf, Zarrar, Wasiq}
+}
+
+% ─── Section Formatting ──────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{sectionblue}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{sectionblue}}{}{0em}{}
+
+% ─── Header / Footer ─────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small Courtify -- Sprint 2 Backlog}
+\lhead{\small Version 1.0}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+% ════════════════════════════════════════════════════════════════════════════
+
+% ─── Title Page ──────────────────────────────────────────────────────────────
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Huge\bfseries\color{sectionblue} Courtify}\par
+\vspace{0.4cm}
+{\Large Sports Arena Booking Platform}\par
+\vspace{1.5cm}
+{\huge Sprint 2 -- Backlog}\par
+\vspace{2cm}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\bfseries}l p{10cm}}
+Project     & Courtify -- Sports Arena Booking Platform \\
+Sprint      & 2 \\
+Duration    & April 8, 2026 -- April 26, 2026 \\
+Goal        & Deliver OTP-based email verification, forgot password flow, court booking for players, a working search filter, admin panel for user management, and clean up the courts listing display. \\
+Prepared By & Shaheer, Yousuf, Zarrar, Wasiq \\
+Version     & 1.0 \\
+\end{tabular}
+\end{titlepage}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Team \& Summary}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\subsection*{Team Members}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|X|X|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries Name & \color{white}\bfseries Role \\ \hline
+Zarrar & Team Member / \textbf{Scrum Master} \\ \hline
+\rowcolor{rowgray}Shaheer & Team Member \\ \hline
+Yousuf & Team Member \\ \hline
+\rowcolor{rowgray}Wasiq & Team Member \\ \hline
+\end{tabularx}
+
+\vspace{1.5em}
+
+\subsection*{Story Points Summary}
+\begin{tabularx}{0.6\textwidth}{|X|X|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries Total Committed & \color{white}\bfseries Total Completed \\ \hline
+40 & --- \\ \hline
+\end{tabularx}
+
+\vspace{2em}
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Product Backlog Items}
+% ═══════════════════════════════════════════════════════════════════════════
+
+% PBI 1
+\subsection*{PBI-01 --- OTP-Based Email Verification}
+\textbf{Priority:} High \quad|\quad \textbf{Points:} 8 \quad|\quad \textbf{Status:} In Progress
+
+\vspace{0.3em}
+\textbf{User Story:} \textit{As a registered user, I want to verify my email using a code sent to my inbox so that my account gets activated.}
+
+\vspace{0.5em}
+\noindent\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|X|l|l|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
+1 & Generate a 6-digit code and send it by email on signup & Zarrar & In Progress \\ \hline
+\rowcolor{rowgray} 2 & Build the OTP entry screen & Wasiq & In Progress \\ \hline
+3 & Check if the code entered matches what was sent & Zarrar & In Progress \\ \hline
+\rowcolor{rowgray} 4 & Show error if the code is wrong or expired & Yousuf & In Progress \\ \hline
+5 & Activate account when code is correct & Zarrar & In Progress \\ \hline
+\rowcolor{rowgray} 6 & Block login until OTP is verified & Shaheer & In Progress \\ \hline
+\end{tabularx}
+
+\vspace{1.5em}
+
+% PBI 2
+\subsection*{PBI-02 --- Forgot Password}
+\textbf{Priority:} High \quad|\quad \textbf{Points:} 6 \quad|\quad \textbf{Status:} In Progress
+
+\vspace{0.3em}
+\textbf{User Story:} \textit{As a user who forgot their password, I want to reset it using my email so I can get back into my account.}
+
+\vspace{0.5em}
+\noindent\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|X|l|l|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
+1 & Add a ``Forgot Password'' link on the login page & Wasiq & In Progress \\ \hline
+\rowcolor{rowgray} 2 & Build the page where user enters their email & Wasiq & In Progress \\ \hline
+3 & Send a reset code to the user's email & Zarrar & In Progress \\ \hline
+\rowcolor{rowgray} 4 & Build the page where user enters new password & Wasiq & In Progress \\ \hline
+5 & Save the new password once confirmed & Zarrar & In Progress \\ \hline
+\rowcolor{rowgray} 6 & Show success message after password is reset & Yousuf & In Progress \\ \hline
+\end{tabularx}
+
+\vspace{1.5em}
+
+% PBI 3
+\subsection*{PBI-03 --- Court Booking for Players}
+\textbf{Priority:} High \quad|\quad \textbf{Points:} 8 \quad|\quad \textbf{Status:} In Progress
+
+\vspace{0.3em}
+\textbf{User Story:} \textit{As a player, I want to book a court at an arena so I can reserve time to play.}
+
+\vspace{0.5em}
+\noindent\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|X|l|l|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
+1 & Add a ``Book'' button on the court detail page & Wasiq & In Progress \\ \hline
+\rowcolor{rowgray} 2 & Build the booking form (date, time, court) & Wasiq & In Progress \\ \hline
+3 & Save the booking to the database & Zarrar & In Progress \\ \hline
+\rowcolor{rowgray} 4 & Show the player their upcoming bookings & Yousuf & In Progress \\ \hline
+5 & Make sure double-bookings are not allowed & Zarrar & In Progress \\ \hline
+\rowcolor{rowgray} 6 & Confirm booking with a success message & Yousuf & In Progress \\ \hline
+\end{tabularx}
+
+\newpage
+
+% PBI 4
+\subsection*{PBI-04 --- Search and Filter (Complete)}
+\textbf{Priority:} High \quad|\quad \textbf{Points:} 6 \quad|\quad \textbf{Status:} In Progress
+
+\vspace{0.3em}
+\textbf{User Story:} \textit{As a player, I want to filter arenas by sport type and price so I can find what I need faster.}
+
+\vspace{0.5em}
+\noindent\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|X|l|l|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
+1 & Add sport type filter buttons & Yousuf & In Progress \\ \hline
+\rowcolor{rowgray} 2 & Add price range filter & Yousuf & In Progress \\ \hline
+3 & Make filters and search bar work together & Shaheer & In Progress \\ \hline
+\rowcolor{rowgray} 4 & Show a message when no results are found & Wasiq & In Progress \\ \hline
+\end{tabularx}
+
+\vspace{1.5em}
+
+% PBI 5
+\subsection*{PBI-05 --- Admin Panel}
+\textbf{Priority:} Medium \quad|\quad \textbf{Points:} 8 \quad|\quad \textbf{Status:} In Progress
+
+\vspace{0.3em}
+\textbf{User Story:} \textit{As an admin, I want to manage users so I can keep the platform safe by banning or unbanning players and owners.}
+
+\vspace{0.5em}
+\noindent\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|X|l|l|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
+1 & Create admin account and login separately & Zarrar & In Progress \\ \hline
+\rowcolor{rowgray} 2 & Build the admin dashboard page & Wasiq & In Progress \\ \hline
+3 & Show a list of all players and owners & Yousuf & In Progress \\ \hline
+\rowcolor{rowgray} 4 & Add ban button for each user & Shaheer & In Progress \\ \hline
+5 & Add unban button for banned users & Shaheer & In Progress \\ \hline
+\rowcolor{rowgray} 6 & Block banned users from logging in & Zarrar & In Progress \\ \hline
+\end{tabularx}
+
+\vspace{1.5em}
+
+% PBI 6
+\subsection*{PBI-06 --- Courts Listing Cleanup}
+\textbf{Priority:} Medium \quad|\quad \textbf{Points:} 4 \quad|\quad \textbf{Status:} In Progress
+
+\vspace{0.3em}
+\textbf{User Story:} \textit{As a player, I want to see only real available courts without any featured or promoted entries cluttering the list.}
+
+\vspace{0.5em}
+\noindent\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|X|l|l|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries \# & \color{white}\bfseries Task & \color{white}\bfseries Owner & \color{white}\bfseries Status \\ \hline
+1 & Remove featured courts section from player listing & Shaheer & In Progress \\ \hline
+\rowcolor{rowgray} 2 & Make sure only actual courts show up & Zarrar & In Progress \\ \hline
+3 & Check that the listing looks clean after removal & Yousuf & In Progress \\ \hline
+\end{tabularx}
+
+\vspace{2em}
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Sprint Summary \& Carry-over}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\subsection*{Sprint Summary}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|l|X|c|c|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries PBI & \color{white}\bfseries Feature & \color{white}\bfseries Points & \color{white}\bfseries Status \\ \hline
+PBI-01 & OTP Email Verification & 8 & In Progress \\ \hline
+\rowcolor{rowgray} PBI-02 & Forgot Password & 6 & In Progress \\ \hline
+PBI-03 & Court Booking & 8 & In Progress \\ \hline
+\rowcolor{rowgray} PBI-04 & Search and Filter & 6 & In Progress \\ \hline
+PBI-05 & Admin Panel & 8 & In Progress \\ \hline
+\rowcolor{rowgray} PBI-06 & Courts Listing Cleanup & 4 & In Progress \\ \hline
+\rowcolor{headerbg}\color{white}\bfseries Total & & \color{white}\bfseries 40 & \color{white}\bfseries All In Progress \\ \hline
+\end{tabularx}
+
+\vspace{1.5em}
+
+\subsection*{Carried Over from Sprint 1}
+\begin{itemize}
+    \item OTP code-based verification (replaces link-based) $\leftarrow$ now PBI-01
+    \item Forgot Password flow $\leftarrow$ now PBI-02
+    \item Sport and price filters $\leftarrow$ now PBI-04
+\end{itemize}
+
+\vspace{2cm}
+\begin{center}
+\textit{Prepared by the Courtify Sprint 2 team -- Shaheer, Yousuf, Zarrar, Wasiq}
+\end{center}
+
+\end{document}

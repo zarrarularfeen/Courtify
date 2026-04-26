@@ -1,0 +1,454 @@
+\documentclass[12pt,a4paper]{article}
+
+% ─── Packages ───────────────────────────────────────────────────────────────
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{enumitem}
+
+% ─── Colors ─────────────────────────────────────────────────────────────────
+\definecolor{headerbg}{RGB}{31,73,125}
+\definecolor{headertext}{RGB}{255,255,255}
+\definecolor{rowgray}{RGB}{242,242,242}
+\definecolor{sectionblue}{RGB}{31,73,125}
+
+% ─── Hyperref Setup ──────────────────────────────────────────────────────────
+\hypersetup{
+    colorlinks=true,
+    linkcolor=sectionblue,
+    urlcolor=sectionblue,
+    pdftitle={Courtify Sprint 2 Daily Scrums},
+    pdfauthor={Shaheer, Yousuf, Zarrar, Wasiq}
+}
+
+% ─── Section Formatting ──────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{sectionblue}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{sectionblue}}{}{0em}{}
+
+% ─── Header / Footer ─────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small Courtify -- Sprint 2 Daily Scrums}
+\lhead{\small Version 1.0}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+% ════════════════════════════════════════════════════════════════════════════
+
+% ─── Title Page ──────────────────────────────────────────────────────────────
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Huge\bfseries\color{sectionblue} Courtify}\par
+\vspace{0.4cm}
+{\Large Sports Arena Booking Platform}\par
+\vspace{1.5cm}
+{\huge Sprint 2 -- Daily Scrum Meetings}\par
+\vspace{2cm}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\bfseries}l p{10cm}}
+Project      & Courtify -- Sports Arena Booking Platform \\
+Sprint       & 2 \\
+Dates        & April 8, 2026 -- April 26, 2026 \\
+Scrum Master & Zarrar \\
+Prepared By  & Shaheer, Yousuf, Zarrar, Wasiq \\
+Version      & 1.0 \\
+\end{tabular}
+\end{titlepage}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Meeting Format}
+% ═══════════════════════════════════════════════════════════════════════════
+
+Each member answers the following three questions during the Daily Scrum:
+\begin{itemize}[noitemsep]
+    \item (1) What did I do yesterday?
+    \item (2) What will I do today?
+    \item (3) Any blockers?
+\end{itemize}
+
+\vspace{1.5em}
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Daily Scrums}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\subsection*{Day 1 --- Tuesday, April 8 (Sprint Kickoff)}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} ---
+    \item \textbf{Today:} Plan out the OTP system and figure out how to generate and send codes.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} ---
+    \item \textbf{Today:} Look into the search filter and figure out what is left from sprint 1.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} ---
+    \item \textbf{Today:} Think about how the booking page should look.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} ---
+    \item \textbf{Today:} Start sketching out the OTP entry screen layout.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 2 --- Wednesday, April 9}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Planned the OTP flow.
+    \item \textbf{Today:} Start building the code generation and email sending for OTP.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Reviewed sprint 1 filter work.
+    \item \textbf{Today:} Busy with another course deadline.
+    \item \textbf{Blockers:} Assignment due.
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Sketched booking page layout.
+    \item \textbf{Today:} Start building the booking page structure.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 3 --- Thursday, April 10}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} OTP code generation working, email sending in progress.
+    \item \textbf{Today:} Finish sending OTP email on signup.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Finished the OTP entry screen layout.
+    \item \textbf{Today:} Add validation feedback to the OTP screen (wrong code message).
+    \item \textbf{Blockers:} Waiting for backend to be ready to test.
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 4 --- Saturday, April 12}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} OTP email sending done and tested.
+    \item \textbf{Today:} Work on checking if the code entered by the user matches what was sent.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\newpage
+
+\subsection*{Day 5 --- Monday, April 14}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} OTP matching logic working.
+    \item \textbf{Today:} Make sure account gets activated once correct OTP is entered.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Submitted assignment, free now.
+    \item \textbf{Today:} Pick up the search filter --- start connecting sport type filter to the listing.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Booking page structure done.
+    \item \textbf{Today:} Add the date and time fields to the booking form.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} OTP error messages working.
+    \item \textbf{Today:} Start the forgot password page where user enters their email.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 6 --- Tuesday, April 15}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Date and time fields added to booking form.
+    \item \textbf{Today:} Busy with a quiz today, won't be able to work.
+    \item \textbf{Blockers:} Quiz.
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Forgot password email entry page done.
+    \item \textbf{Today:} Build the new password entry page for reset flow.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 7 --- Wednesday, April 16}
+
+\textit{No meeting today --- all members busy with midterm preparation.}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 8 --- Thursday, April 17}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy with midterms.
+    \item \textbf{Today:} Start the forgot password reset code email sending.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy with midterms.
+    \item \textbf{Today:} Work on making the sport filter and search bar work together.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy with midterms.
+    \item \textbf{Today:} Continue the booking form --- connect it to send data to the backend.
+    \item \textbf{Blockers:} Needs Zarrar to confirm the booking saving part.
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\newpage
+
+\subsection*{Day 9 --- Saturday, April 19}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Reset code sending by email done.
+    \item \textbf{Today:} Save the new password when the user confirms it.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} New password page done.
+    \item \textbf{Today:} Add success message after password is reset.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 10 --- Monday, April 21}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Password saving on reset is working.
+    \item \textbf{Today:} Start building the admin login separately from player/owner login.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Sport filter and search bar working together.
+    \item \textbf{Today:} Add price range filter and connect it to the listing.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Booking form connected to backend.
+    \item \textbf{Today:} Show the player their upcoming bookings on their dashboard.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Success message for password reset added.
+    \item \textbf{Today:} Start building the admin dashboard page layout.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 11 --- Tuesday, April 22}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Admin login is working.
+    \item \textbf{Today:} Make sure banned users cannot log in.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Price range filter working.
+    \item \textbf{Today:} Test all filters together and fix anything that breaks.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Player bookings list showing on dashboard.
+    \item \textbf{Today:} Make sure double bookings are not allowed.
+    \item \textbf{Blockers:} Needs Zarrar to confirm backend check.
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 12 --- Wednesday, April 23}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Banned users now blocked from login.
+    \item \textbf{Today:} Build the list of all players and owners for the admin panel.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Admin dashboard layout done.
+    \item \textbf{Today:} Add ban and unban buttons to each user in the admin list.
+    \item \textbf{Blockers:} Waiting for the user list from Zarrar.
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\newpage
+
+\subsection*{Day 13 --- Thursday, April 24}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} All filters tested and working cleanly.
+    \item \textbf{Today:} Remove the featured courts section from the player listing page.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 14 --- Friday, April 25}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} User list for admin ready.
+    \item \textbf{Today:} Connect ban/unban buttons to the backend.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Double booking check working.
+    \item \textbf{Today:} Clean up the courts listing page --- make sure only real courts show.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Ban and unban buttons added to admin panel.
+    \item \textbf{Today:} Busy with another course.
+    \item \textbf{Blockers:} Other coursework.
+\end{itemize}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\subsection*{Day 15 --- Saturday, April 26 (Sprint End)}
+
+\textbf{Zarrar:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Ban/unban fully working through admin panel.
+    \item \textbf{Today:} Do the sprint review and walk through all features.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Shaheer:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Featured courts removed, listing looks clean.
+    \item \textbf{Today:} Finalize and submit sprint 2 documents.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Yousuf:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Courts listing cleaned up.
+    \item \textbf{Today:} Sprint retrospective and note anything to carry to sprint 3.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\textbf{Wasiq:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Yesterday:} Busy.
+    \item \textbf{Today:} Join the sprint review and help with the presentation.
+    \item \textbf{Blockers:} None
+\end{itemize}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Sprint 2 Timeline at a Glance}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|c|l|X|}
+\hline
+\rowcolor{headerbg}\color{white}\bfseries Day & \color{white}\bfseries Date & \color{white}\bfseries Key Milestone \\ \hline
+1  & Apr 8  & Sprint kickoff \\ \hline
+\rowcolor{rowgray} 2  & Apr 9  & OTP email sending started \\ \hline
+3  & Apr 10 & OTP screen layout done \\ \hline
+\rowcolor{rowgray} 4  & Apr 12 & OTP matching logic done \\ \hline
+5  & Apr 14 & Account activation on OTP working \\ \hline
+\rowcolor{rowgray} 6  & Apr 15 & Booking form fields added \\ \hline
+7  & Apr 16 & No meeting --- midterm prep \\ \hline
+\rowcolor{rowgray} 8  & Apr 17 & Forgot password reset code sending \\ \hline
+9  & Apr 19 & Password reset saving working \\ \hline
+\rowcolor{rowgray} 10 & Apr 21 & Admin login working \\ \hline
+11 & Apr 22 & Filters all working, bookings on dashboard \\ \hline
+\rowcolor{rowgray} 12 & Apr 23 & Admin user list ready \\ \hline
+13 & Apr 24 & Featured courts removed \\ \hline
+\rowcolor{rowgray} 14 & Apr 25 & Ban/unban connected to backend \\ \hline
+15 & Apr 26 & Sprint review \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+\begin{center}
+\textit{Prepared by the Courtify Sprint 2 team -- Shaheer, Yousuf, Zarrar, Wasiq}
+\end{center}
+
+\end{document}

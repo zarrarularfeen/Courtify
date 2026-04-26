@@ -1,0 +1,613 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}\usepackage{longtable}\usepackage{array}
+\usepackage{xcolor}\usepackage{colortbl}\usepackage{hyperref}
+\usepackage{titlesec}\usepackage{parskip}\usepackage{fancyhdr}
+\usepackage{graphicx}\usepackage{tabularx}\usepackage{multirow}
+
+\definecolor{headerbg}{RGB}{31,73,125}
+\definecolor{headertext}{RGB}{255,255,255}
+\definecolor{rowgray}{RGB}{242,242,242}
+\definecolor{passgreen}{RGB}{0,128,0}
+\definecolor{failred}{RGB}{192,0,0}
+\definecolor{sectionblue}{RGB}{31,73,125}
+
+\hypersetup{colorlinks=true,linkcolor=sectionblue,urlcolor=sectionblue,
+  pdftitle={Courtify Sprint 2 Test Cases},pdfauthor={Shaheer, Yousuf, Zarrar, Wasiq}}
+
+\titleformat{\section}{\large\bfseries\color{sectionblue}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{sectionblue}}{}{0em}{}
+
+\pagestyle{fancy}\fancyhf{}
+\rhead{\small Courtify -- Sprint 2 Test Cases}
+\lhead{\small Version 1.0}\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\pass}{\textcolor{passgreen}{\textbf{Pass}}}
+\newcommand{\fail}{\textcolor{failred}{\textbf{Fail}}}
+\newcommand{\tcactual}[1]{Actual Result & #1 \\ \hline \rowcolor{rowgray}}
+\newcommand{\tcstatus}[1]{Status & #1 \\ \hline}
+\newcommand{\tccomment}[1]{Comments & #1 \\ \hline}
+
+\newcommand{\testcase}[9]{%
+\renewcommand{\arraystretch}{1.3}
+\noindent\begin{tabularx}{\textwidth}{|>{\bfseries\small}p{3.5cm}|>{\small}X|}
+\hline
+\rowcolor{headerbg}\multicolumn{2}{|l|}{\color{white}\bfseries\small #1 -- #3}\\
+\hline
+Test Case ID    & #1 \\ \hline
+\rowcolor{rowgray}
+Module          & #2 \\ \hline
+Title           & #3 \\ \hline
+\rowcolor{rowgray}
+Priority        & #4 \\ \hline
+Pre-conditions  & #5 \\ \hline
+\rowcolor{rowgray}
+Test Steps      & #6 \\ \hline
+Test Data       & #7 \\ \hline
+\rowcolor{rowgray}
+Expected Result & #8 \\ \hline
+#9
+\end{tabularx}
+\vspace{0.7em}
+}
+
+% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+% ════════════════════════════════════════════════════════════════════════════
+
+\begin{titlepage}
+\centering\vspace*{2cm}
+{\Huge\bfseries\color{sectionblue} Courtify}\par\vspace{0.4cm}
+{\Large Sports Arena Booking Platform}\par\vspace{1.5cm}
+{\huge Sprint 2 -- Test Cases}\par\vspace{2cm}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ll}
+\textbf{Project}     & Courtify -- Sports Arena Booking Platform \\
+\textbf{Sprint}      & 2 \\
+\textbf{Prepared By} & Shaheer, Yousuf, Zarrar, Wasiq \\
+\textbf{Date}        & April 26, 2026 \\
+\textbf{Version}     & 1.0 \\
+\end{tabular}
+\end{titlepage}
+
+\section{Test Environment}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|}
+\hline
+\rowcolor{headerbg}\color{white}Parameter & \color{white}Value \\ \hline
+Frontend        & http://localhost:5173 \\ \hline
+\rowcolor{rowgray}
+Backend         & http://localhost:5000 \\ \hline
+Database        & MySQL -- courtify\_db \\ \hline
+\rowcolor{rowgray}
+Browser         & Google Chrome (latest) \\ \hline
+API Tool        & Postman \\ \hline
+\rowcolor{rowgray}
+Sprint Duration & April 8, 2026 -- April 26, 2026 \\ \hline
+\end{tabularx}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 1 -- OTP-Based Email Verification}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-OTP-001}{OTP Verification}{OTP code is sent to email on successful signup}
+  {High}
+  {Backend running; Nodemailer configured; new email not in DB}
+  {1. Register a new player account. 2. Check the inbox of the registered email.}
+  {Email: otptest@test.com, Password: Pass@1234}
+  {A 6-digit OTP code is received in the inbox within a few seconds of signup}
+  {\tcactual{OTP email received with 6-digit code}\tcstatus{\pass}\tccomment{Code generated fresh each time; stored against user record in DB}}
+
+\testcase
+  {TC-OTP-002}{OTP Verification}{Correct OTP activates the account}
+  {High}
+  {User registered; OTP sent; account not yet active}
+  {1. Enter the correct OTP on the verification screen. 2. Submit.}
+  {OTP: correct 6-digit code from email}
+  {Account is activated; success message shown; redirected to login}
+  {\tcactual{Account activated; success message shown; redirect works}\tcstatus{\pass}\tccomment{is\_active set to 1 in DB after correct OTP}}
+
+\testcase
+  {TC-OTP-003}{OTP Verification}{Wrong OTP shows error and does not activate account}
+  {High}
+  {User registered; OTP sent; account not yet active}
+  {1. Enter an incorrect OTP. 2. Submit.}
+  {OTP: 000000 (wrong code)}
+  {Error message shown; account remains inactive; is\_active stays 0}
+  {\tcactual{Error shown; DB not updated}\tcstatus{\pass}\tccomment{No activation on wrong code; user can retry}}
+
+\testcase
+  {TC-OTP-004}{OTP Verification}{Expired OTP is rejected}
+  {High}
+  {OTP generated more than 10 minutes ago}
+  {1. Wait for OTP to expire. 2. Enter old code. 3. Submit.}
+  {OTP: correct digits but expired}
+  {Error: ``OTP has expired. Please request a new one.''; account not activated}
+  {\tcactual{Expired OTP rejected correctly}\tcstatus{\pass}\tccomment{Expiry check based on creation timestamp in DB}}
+
+\testcase
+  {TC-OTP-005}{OTP Verification}{Unverified user cannot log in}
+  {High}
+  {User registered; OTP not entered; is\_active = 0}
+  {1. Try to log in with registered credentials without verifying first.}
+  {Email: otptest@test.com, Password: Pass@1234}
+  {HTTP 403; ``Please verify your email first''; no session created}
+  {\tcactual{HTTP 403 returned; login blocked}\tcstatus{\pass}\tccomment{Same block as Sprint 1 but now applies to OTP flow}}
+
+\testcase
+  {TC-OTP-006}{OTP Verification}{OTP screen shows error if field is submitted empty}
+  {Medium}
+  {User on the OTP entry screen}
+  {1. Leave the OTP field blank. 2. Click verify.}
+  {OTP: (empty)}
+  {Error: ``Please enter the OTP''; form not submitted}
+  {\tcactual{Validation error shown on empty submit}\tcstatus{\pass}\tccomment{Frontend validation before API call}}
+
+\testcase
+  {TC-OTP-007}{OTP Verification}{Resend OTP generates a new code and invalidates old one}
+  {Medium}
+  {User on OTP screen; first OTP sent}
+  {1. Click ``Resend OTP''. 2. Check inbox for new code. 3. Try old code.}
+  {Email: otptest@test.com}
+  {New OTP received; old code rejected when entered}
+  {\tcactual{New OTP received; old one rejected}\tcstatus{\pass}\tccomment{Old code overwritten in DB on resend}}
+
+\testcase
+  {TC-OTP-008}{OTP Verification}{OTP field only accepts 6-digit numeric input}
+  {Low}
+  {User on OTP entry screen}
+  {1. Try entering letters. 2. Try 5 digits. 3. Try 7 digits.}
+  {Inputs: ``abcdef'', ``12345'', ``1234567''}
+  {Non-numeric and wrong-length inputs not accepted}
+  {\tcactual{Only valid 6-digit numeric input accepted}\tcstatus{\pass}\tccomment{Frontend input constraints enforce format}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 2 -- Forgot Password}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-FPW-001}{Forgot Password}{Forgot password link visible on login page}
+  {Medium}
+  {Login page loaded}
+  {1. Open login page. 2. Look for ``Forgot Password?'' link.}
+  {None}
+  {``Forgot Password?'' link is visible and clickable}
+  {\tcactual{Link present on login page; navigates to email entry page}\tcstatus{\pass}\tccomment{Link placed below password field}}
+
+\testcase
+  {TC-FPW-002}{Forgot Password}{Reset code sent to registered email}
+  {High}
+  {User account exists in DB; backend running}
+  {1. Click ``Forgot Password?''. 2. Enter registered email. 3. Submit.}
+  {Email: player@example.com}
+  {Reset code email received; success message shown}
+  {\tcactual{Reset email received; message displayed}\tcstatus{\pass}\tccomment{Code stored in DB linked to user record}}
+
+\testcase
+  {TC-FPW-003}{Forgot Password}{No error shown for unregistered email (security)}
+  {High}
+  {Backend running; email not in DB}
+  {1. Enter unregistered email on forgot password page. 2. Submit.}
+  {Email: ghost@nowhere.com}
+  {Same success message shown as for a valid email; no hint given}
+  {\tcactual{Generic success message shown regardless}\tcstatus{\pass}\tccomment{Prevents email enumeration attacks}}
+
+\testcase
+  {TC-FPW-004}{Forgot Password}{Correct reset code allows password change}
+  {High}
+  {Reset code sent to email; user has the code}
+  {1. Enter correct reset code. 2. Enter new password. 3. Confirm. 4. Submit.}
+  {Code: correct, New Password: NewPass@123}
+  {Password updated; success message shown; old password no longer works}
+  {\tcactual{Password updated in DB; login with new password works}\tcstatus{\pass}\tccomment{Old password invalidated after reset}}
+
+\testcase
+  {TC-FPW-005}{Forgot Password}{Wrong reset code is rejected}
+  {High}
+  {Reset code sent; user enters wrong code}
+  {1. Enter incorrect reset code. 2. Submit.}
+  {Code: 000000 (wrong)}
+  {Error: ``Invalid or expired code''; password not changed}
+  {\tcactual{Error shown; password unchanged in DB}\tcstatus{\pass}\tccomment{DB not updated on wrong code}}
+
+\testcase
+  {TC-FPW-006}{Forgot Password}{Mismatched passwords rejected on reset page}
+  {High}
+  {User on reset page with valid code}
+  {1. Enter valid code. 2. Enter mismatched passwords. 3. Submit.}
+  {New Password: NewPass@123, Confirm: Different@456}
+  {Error: ``Passwords do not match''; form not submitted}
+  {\tcactual{Frontend validation catches mismatch}\tcstatus{\pass}\tccomment{Check done before API call}}
+
+\testcase
+  {TC-FPW-007}{Forgot Password}{Success message and redirect after password reset}
+  {Medium}
+  {User completes reset with correct code and matching passwords}
+  {1. Complete full reset flow. 2. Observe UI.}
+  {Valid code and matching new passwords}
+  {Success message shown; user redirected to login page}
+  {\tcactual{Success message displayed; redirect to login works}\tcstatus{\pass}\tccomment{User must log in again with new password}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 3 -- Court Booking for Players}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-BKG-001}{Court Booking}{Book button visible on court detail page for players}
+  {High}
+  {Player logged in; arena detail page open}
+  {1. Log in as player. 2. Open any arena. 3. Select a court. 4. Look for Book button.}
+  {Verified player account}
+  {``Book'' button is visible next to the selected court}
+  {\tcactual{Book button present on court detail page}\tcstatus{\pass}\tccomment{Button only shown for logged-in players}}
+
+\testcase
+  {TC-BKG-002}{Court Booking}{Booking form shows date and time fields}
+  {High}
+  {Player clicks Book button}
+  {1. Click Book button. 2. Inspect the booking form that appears.}
+  {None}
+  {Form shows fields for date, start time, end time, and pre-filled court name}
+  {\tcactual{All required fields present}\tcstatus{\pass}\tccomment{Court name auto-filled from selection}}
+
+\testcase
+  {TC-BKG-003}{Court Booking}{Player successfully books a court}
+  {High}
+  {Player logged in; court available on selected slot}
+  {1. Open booking form. 2. Pick date and time. 3. Submit.}
+  {Date: 2026-05-01, Start: 10:00, End: 12:00, Court ID: 1}
+  {HTTP 201; booking saved; success message displayed to player}
+  {\tcactual{Booking saved to DB; success message shown}\tcstatus{\pass}\tccomment{Record stores player ID, court ID, date, and time}}
+
+\testcase
+  {TC-BKG-004}{Court Booking}{Double-booking same court at same time is rejected}
+  {High}
+  {Court already booked for the chosen slot}
+  {1. Try to book the same court for an already booked slot.}
+  {Date: 2026-05-01, Start: 10:00, End: 12:00, Court ID: 1}
+  {HTTP 409; ``This court is already booked for the selected time''}
+  {\tcactual{Double booking rejected; error shown}\tcstatus{\pass}\tccomment{Overlap check done in backend before insert}}
+
+\testcase
+  {TC-BKG-005}{Court Booking}{Player dashboard shows upcoming bookings}
+  {High}
+  {Player has at least one confirmed booking in DB}
+  {1. Log in as player. 2. Open player dashboard. 3. Check bookings section.}
+  {Player with one booking in DB}
+  {Bookings listed with arena name, court, date, and time}
+  {\tcactual{Booking list shown correctly on dashboard}\tcstatus{\pass}\tccomment{Bookings fetched using player ID}}
+
+\testcase
+  {TC-BKG-006}{Court Booking}{Booking fails for a past date}
+  {Medium}
+  {Player on booking form}
+  {1. Select a date in the past. 2. Submit.}
+  {Date: 2026-01-01 (past)}
+  {Error: ``Cannot book a court for a past date''}
+  {\tcactual{Past date rejected; error shown}\tcstatus{\pass}\tccomment{Date validated against current date before DB insert}}
+
+\testcase
+  {TC-BKG-007}{Court Booking}{Booking fails if end time is before start time}
+  {Medium}
+  {Player on booking form}
+  {1. Set start time to 14:00 and end time to 12:00. 2. Submit.}
+  {Start: 14:00, End: 12:00}
+  {Error: ``End time must be after start time''}
+  {\tcactual{Invalid time range rejected}\tcstatus{\pass}\tccomment{Both frontend and backend validate time order}}
+
+\testcase
+  {TC-BKG-008}{Court Booking}{Unauthenticated user cannot access booking form}
+  {High}
+  {User not logged in}
+  {1. Try to open booking form without a session.}
+  {No login session in browser}
+  {Redirected to login or home; booking form not shown}
+  {\tcactual{User redirected; booking form not accessible}\tcstatus{\pass}\tccomment{Route protected; requires active player session}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 4 -- Search and Filter}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-SCH-001}{Search and Filter}{Search by arena name filters results in real-time}
+  {High}
+  {At least 3 arenas visible on dashboard}
+  {1. Type ``Legend'' in the search bar. 2. Observe cards.}
+  {Search input: ``Legend''}
+  {Only ``Legends Arena'' card visible; others hidden}
+  {\tcactual{Filter works; only matching card shown}\tcstatus{\pass}\tccomment{No page reload; purely state-based filtering}}
+
+\testcase
+  {TC-SCH-002}{Search and Filter}{Search by city filters results correctly}
+  {High}
+  {Arenas in multiple cities on dashboard}
+  {1. Type ``Lahore'' in search bar. 2. Observe cards.}
+  {Search input: ``Lahore''}
+  {Only arenas in Lahore are shown}
+  {\tcactual{City filter works correctly}\tcstatus{\pass}\tccomment{Filter applied to city field of arena objects}}
+
+\testcase
+  {TC-SCH-003}{Search and Filter}{Sport type filter shows only matching arenas}
+  {High}
+  {Multiple arenas with different sport types}
+  {1. Click ``Padel'' filter button. 2. Observe cards.}
+  {Filter: Padel}
+  {Only arenas offering Padel courts are shown}
+  {\tcactual{Only Padel arenas displayed}\tcstatus{\pass}\tccomment{Filter checks sports array in arena data}}
+
+\testcase
+  {TC-SCH-004}{Search and Filter}{Price range filter shows arenas within range}
+  {High}
+  {Arenas with varying prices on dashboard}
+  {1. Set price range to 1000--3000. 2. Observe cards.}
+  {Min: 1000, Max: 3000}
+  {Only arenas with pricePerHour between 1000 and 3000 are shown}
+  {\tcactual{Price filter works; out-of-range arenas hidden}\tcstatus{\pass}\tccomment{Filter applied to pricePerHour field}}
+
+\testcase
+  {TC-SCH-005}{Search and Filter}{Search and sport filter work together}
+  {High}
+  {Multiple arenas on dashboard}
+  {1. Type ``Arena'' in search bar. 2. Also select ``Futsal'' filter. 3. Observe.}
+  {Search: ``Arena'', Filter: Futsal}
+  {Only arenas matching both criteria shown}
+  {\tcactual{Combined filter produces correct results}\tcstatus{\pass}\tccomment{Both conditions applied simultaneously}}
+
+\testcase
+  {TC-SCH-006}{Search and Filter}{No results message shown when nothing matches}
+  {Medium}
+  {Arenas visible on dashboard}
+  {1. Type ``zzznomatch'' in search bar. 2. Observe.}
+  {Search input: ``zzznomatch''}
+  {No arena cards shown; ``No results found'' or similar message displayed}
+  {\tcactual{Empty state message shown correctly}\tcstatus{\pass}\tccomment{UI handles zero-result state gracefully}}
+
+\testcase
+  {TC-SCH-007}{Search and Filter}{Clearing filters restores all arenas}
+  {Medium}
+  {User has active filters applied}
+  {1. Apply sport filter and search. 2. Clear all filters. 3. Observe.}
+  {Cleared state}
+  {All arena cards visible again}
+  {\tcactual{Full list restored on clear}\tcstatus{\pass}\tccomment{Reset button or clearing inputs restores default state}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 5 -- Admin Panel}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-ADM-001}{Admin Panel}{Admin can log in with admin credentials}
+  {High}
+  {Admin account exists in DB}
+  {1. Go to admin login page. 2. Enter admin credentials. 3. Submit.}
+  {Email: admin@courtify.com, Password: Admin@1234}
+  {HTTP 200; admin session created; redirected to admin dashboard}
+  {\tcactual{Admin logged in; dashboard loaded}\tcstatus{\pass}\tccomment{Admin login handled separately from player/owner flow}}
+
+\testcase
+  {TC-ADM-002}{Admin Panel}{Admin dashboard shows list of all players and owners}
+  {High}
+  {Admin logged in; users exist in DB}
+  {1. Log in as admin. 2. Open user management section on dashboard.}
+  {Admin session active}
+  {List of all players and owners shown with name, email, and current status}
+  {\tcactual{Full user list displayed}\tcstatus{\pass}\tccomment{Both players and arena\_owners tables queried}}
+
+\testcase
+  {TC-ADM-003}{Admin Panel}{Admin can ban a player}
+  {High}
+  {Admin logged in; target player exists and is active}
+  {1. Find player in the list. 2. Click ``Ban'' button. 3. Confirm action.}
+  {Player ID: 2 (active player)}
+  {Player status updated to banned; ban reflected in the list}
+  {\tcactual{Player banned; status updated in DB and shown in list}\tcstatus{\pass}\tccomment{is\_banned field set to 1 in players table}}
+
+\testcase
+  {TC-ADM-004}{Admin Panel}{Admin can ban an owner}
+  {High}
+  {Admin logged in; target owner exists and is active}
+  {1. Find owner in the list. 2. Click ``Ban'' button. 3. Confirm.}
+  {Owner ID: 3 (active owner)}
+  {Owner status updated to banned; reflected in admin list}
+  {\tcactual{Owner banned; DB and UI updated correctly}\tcstatus{\pass}\tccomment{is\_banned field set in arena\_owners table}}
+
+\testcase
+  {TC-ADM-005}{Admin Panel}{Banned player cannot log in}
+  {High}
+  {Player account is banned (is\_banned = 1)}
+  {1. Try to log in as the banned player.}
+  {Email: bannedplayer@test.com, Password: Pass@1234}
+  {HTTP 403; ``Your account has been banned''; no session created}
+  {\tcactual{Banned player blocked from login}\tcstatus{\pass}\tccomment{ban check happens before password verification}}
+
+\testcase
+  {TC-ADM-006}{Admin Panel}{Admin can unban a banned player}
+  {High}
+  {Admin logged in; target player is currently banned}
+  {1. Find banned player in list. 2. Click ``Unban'' button. 3. Confirm.}
+  {Player ID: 2 (banned)}
+  {Player status updated to active; can log in again}
+  {\tcactual{Player unbanned; is\_banned set to 0; login works again}\tcstatus{\pass}\tccomment{Unban restores normal access}}
+
+\testcase
+  {TC-ADM-007}{Admin Panel}{Admin can unban a banned owner}
+  {High}
+  {Admin logged in; target owner is currently banned}
+  {1. Find banned owner in list. 2. Click ``Unban''. 3. Confirm.}
+  {Owner ID: 3 (banned)}
+  {Owner can log in again after unban}
+  {\tcactual{Owner unbanned; login restored}\tcstatus{\pass}\tccomment{is\_banned set to 0 in arena\_owners table}}
+
+\testcase
+  {TC-ADM-008}{Admin Panel}{Non-admin user cannot access admin panel}
+  {High}
+  {Regular player logged in}
+  {1. Log in as player. 2. Try to navigate to /admin/dashboard.}
+  {userType: player}
+  {Access denied; redirected to player dashboard or home}
+  {\tcactual{Player redirected; admin panel not shown}\tcstatus{\pass}\tccomment{Route guarded by admin role check}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 6 -- Courts Listing Cleanup}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-CLN-001}{Courts Listing Cleanup}{Featured courts section is removed from player listing}
+  {High}
+  {Player logged in; on arena listing dashboard}
+  {1. Log in as player. 2. Open the main arena listing page. 3. Look for featured courts section.}
+  {Player session active}
+  {No featured courts section visible; only regular arena cards shown}
+  {\tcactual{Featured section absent from listing page}\tcstatus{\pass}\tccomment{Featured courts block removed from frontend component}}
+
+\testcase
+  {TC-CLN-002}{Courts Listing Cleanup}{Only real courts show in arena detail page}
+  {High}
+  {Arena with correct court data in DB}
+  {1. Open any arena detail page. 2. Check the courts listed.}
+  {Arena ID: 1}
+  {Only actual courts belonging to that arena are shown; no promoted or extra entries}
+  {\tcactual{Only valid courts shown in detail view}\tcstatus{\pass}\tccomment{Court data sourced purely from DB join; no hardcoded extras}}
+
+\testcase
+  {TC-CLN-003}{Courts Listing Cleanup}{Listing page looks clean and uncluttered after removal}
+  {Medium}
+  {Frontend running; player on listing page}
+  {1. Open listing page. 2. Visually inspect the layout.}
+  {None}
+  {Page layout is clean; no broken sections or empty placeholder areas where featured courts used to be}
+  {\tcactual{No visual artifacts; layout looks clean}\tcstatus{\pass}\tccomment{CSS spacing updated after section removal}}
+
+\testcase
+  {TC-CLN-004}{Courts Listing Cleanup}{Owner-added arenas still appear correctly after cleanup}
+  {Medium}
+  {Owner has created at least one arena; frontend running}
+  {1. Log in as player. 2. Check listing for owner-added arena.}
+  {Owner-created arena in DB}
+  {Owner's arena card appears normally in listing; no impact from cleanup changes}
+  {\tcactual{Owner arenas display correctly; no regression}\tcstatus{\pass}\tccomment{Cleanup only removed featured section; regular listing logic unchanged}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 7 -- Owner Court Management}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-CRT-001}{Owner Facility Registration}{Owner successfully registers a facility with all fields filled}
+  {High}
+  {Owner logged in with valid JWT; backend running}
+  {1. Open Register New Facility page. 2. Fill in Arena Name, City, Price Per Hour, Address, Timing, Description. 3. Add at least one amenity and one rule using the Add button. 4. Click Register Facility.}
+  {Name: Sports Hub, City: Islamabad, Price: 3000, Address: F-7 Markaz, Timing: 9 AM -- 10 PM, Amenity: Parking, Rule: No smoking}
+  {HTTP 201; ``Facility registered successfully!'' alert shown; owner redirected to /owner/dashboard; new arena in DB with availability=available and rating=0}
+  {\tcactual{Arena created; DB record confirmed; redirected to owner dashboard}\tcstatus{\pass}\tccomment{owner\_id taken from JWT token, not from form}}
+
+\testcase
+  {TC-CRT-002}{Owner Facility Registration}{Registration fails when Arena Name is missing}
+  {High}
+  {Owner logged in; on Register Facility page}
+  {1. Leave Arena Name field empty. 2. Fill all other fields. 3. Click Register Facility.}
+  {Name: (empty), City: Karachi, Price: 2000}
+  {Form blocked by browser required field validation; or HTTP 400 ``Missing required fields: name is required'' from backend}
+  {\tcactual{Submission blocked; error shown for missing name}\tcstatus{\pass}\tccomment{Name field has required attribute in frontend; backend also guards separately}}
+
+\testcase
+  {TC-CRT-003}{Owner Facility Registration}{Registration fails when City is missing}
+  {High}
+  {Owner logged in; on Register Facility page}
+  {1. Fill Arena Name, Price, Address, Timing. 2. Leave City field empty. 3. Click Register Facility.}
+  {Name: Test Arena, City: (empty), Price: 2000}
+  {Form blocked by browser required validation; or HTTP 400 ``Missing required fields'' from backend}
+  {\tcactual{Submission blocked; city field flagged as required}\tcstatus{\pass}\tccomment{City field has required attribute; backend checks city/location before insert}}
+
+\testcase
+  {TC-CRT-004}{Owner Facility Registration}{Registration fails when Price Per Hour is missing}
+  {High}
+  {Owner logged in; on Register Facility page}
+  {1. Fill all fields except Price Per Hour. 2. Click Register Facility.}
+  {Name: Test Arena, City: Lahore, Price: (empty)}
+  {Form blocked by browser required validation; or HTTP 400 ``Missing required fields'' from backend}
+  {\tcactual{Submission blocked; price field flagged as required}\tcstatus{\pass}\tccomment{pricePerHour is required at both frontend and backend level}}
+
+\testcase
+  {TC-CRT-005}{Owner Facility Registration}{Registration fails when Price Per Hour is zero or negative}
+  {High}
+  {Owner logged in; on Register Facility page}
+  {1. Fill all fields. 2. Enter 0 or -500 in Price Per Hour. 3. Click Register Facility.}
+  {Price: 0 or -500}
+  {HTTP 400; ``Invalid price value''; arena not saved in DB}
+  {\tcactual{Backend rejects invalid price; error shown}\tcstatus{\pass}\tccomment{Backend explicitly checks: typeof pricePerHour !== number OR pricePerHour <= 0}}
+
+\testcase
+  {TC-CRT-006}{Owner Facility Registration}{Amenity is added to the list when Add button is clicked}
+  {Medium}
+  {Owner on Register Facility page}
+  {1. Type ``Parking'' in the Amenities input. 2. Click Add button. 3. Observe the tags area.}
+  {Amenity input: ``Parking''}
+  {``Parking'' tag appears below the input with an X button; input field is cleared}
+  {\tcactual{Tag appears; input cleared after add}\tcstatus{\pass}\tccomment{addAmenity() trims whitespace; ignores empty input}}
+
+\testcase
+  {TC-CRT-007}{Owner Facility Registration}{Amenity tag can be removed using the X button}
+  {Medium}
+  {Owner has added at least one amenity tag on the form}
+  {1. Add an amenity (e.g., ``Showers''). 2. Click the X button on the tag.}
+  {Amenity: ``Showers''}
+  {Tag is removed from the list; it will not be included in the submitted form data}
+  {\tcactual{Tag removed from list immediately}\tcstatus{\pass}\tccomment{removeAmenity() filters by index; rules work the same way}}
+
+\testcase
+  {TC-CRT-008}{Owner Facility Registration}{Player token is rejected when attempting to register a facility}
+  {High}
+  {Player logged in (has player JWT); tries to call POST /arenas directly}
+  {1. Send POST /arenas with a valid player JWT in Authorization header. 2. Fill required fields.}
+  {Authorization: Bearer \textless{}player\_token\textgreater{}, Name: Test, City: Test, Price: 1000}
+  {HTTP 403; ``Forbidden: Access denied. Not an owner.''}
+  {\tcactual{Request rejected; player cannot register arenas}\tcstatus{\pass}\tccomment{requireOwner middleware checks userType from JWT}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Test Execution Summary}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|X|c|c|c|c|}
+\hline
+\rowcolor{headerbg}
+\color{white}\bfseries Module & \color{white}\bfseries Total & \color{white}\bfseries Pass & \color{white}\bfseries Fail & \color{white}\bfseries Blocked \\
+\hline
+OTP-Based Email Verification  & 8  & 8  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Forgot Password                & 7  & 7  & 0 & 0 \\ \hline
+Court Booking for Players      & 8  & 8  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Search and Filter              & 7  & 7  & 0 & 0 \\ \hline
+Admin Panel                    & 8  & 8  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Courts Listing Cleanup         & 4  & 4  & 0 & 0 \\ \hline
+Owner Court Management         & 8  & 8  & 0 & 0 \\ \hline
+\rowcolor{headerbg}
+\color{white}\bfseries Total & \color{white}\bfseries 50 & \color{white}\bfseries 50 & \color{white}\bfseries 0 & \color{white}\bfseries 0 \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+\begin{center}
+\textit{Prepared by the Courtify Sprint 2 team -- Shaheer, Yousuf, Zarrar, Wasiq}
+\end{center}
+
+\end{document}
