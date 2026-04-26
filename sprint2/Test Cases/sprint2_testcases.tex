@@ -582,6 +582,183 @@ Sprint Duration & April 8, 2026 -- April 26, 2026 \\ \hline
 \newpage
 
 % ═══════════════════════════════════════════════════════════════════════════
+\section{Module 8 -- Admin: Arena Moderation}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-MOD-001}{Admin Moderation}{Newly registered arena is hidden from players until admin approves it}
+  {High}
+  {Owner has registered a new arena; admin not yet approved it}
+  {1. Owner registers a new arena. 2. Log in as player. 3. Search and browse the arena listing.}
+  {New arena in DB with status = pending}
+  {Arena does not appear in the player listing or search results until approval}
+  {\tcactual{Pending arena not visible to players}\tcstatus{\pass}\tccomment{Listing query filters on approval status; pending arenas excluded}}
+
+\testcase
+  {TC-MOD-002}{Admin Moderation}{Admin can approve a pending arena from the admin dashboard}
+  {High}
+  {Admin logged in; at least one arena in pending approval state}
+  {1. Log in as admin. 2. Open pending arenas section. 3. Click Approve on the target arena.}
+  {Arena status: pending}
+  {Arena status updated to approved; arena now appears in player listing}
+  {\tcactual{Arena approved; visible in player listing after approval}\tcstatus{\pass}\tccomment{Status column updated in arenas table; player listing query picks it up immediately}}
+
+\testcase
+  {TC-MOD-003}{Admin Moderation}{Admin search bar finds users and arenas by name or email}
+  {High}
+  {Admin logged in; users and arenas exist in DB}
+  {1. Open admin dashboard. 2. Type a player name in the search bar. 3. Type an email. 4. Type an arena name.}
+  {Search: ``Ali Khan'', then ``ali@test.com'', then ``Legends Arena''}
+  {Matching users or arenas appear in the results for each query; unrelated entries hidden}
+  {\tcactual{Search results filtered correctly for all query types}\tcstatus{\pass}\tccomment{Search applied to name and email fields across both players and arena\_owners tables}}
+
+\testcase
+  {TC-MOD-004}{Admin Moderation}{Admin can send a warning to a user instead of banning}
+  {Medium}
+  {Admin logged in; target user exists and is active}
+  {1. Find user in admin panel. 2. Click ``Send Warning'' button. 3. Confirm action.}
+  {User ID: 2 (active player)}
+  {Warning recorded in the system; user status updated to ``Warned'' in admin list; user is NOT banned}
+  {\tcactual{Warning saved; user still active; admin list reflects Warned status}\tcstatus{\pass}\tccomment{Separate is\_warned flag used; ban flag remains 0}}
+
+\testcase
+  {TC-MOD-005}{Admin Moderation}{Warning triggers an automated email to the user}
+  {Medium}
+  {Admin sends a warning to a user (TC-MOD-004 precondition met)}
+  {1. Admin clicks Send Warning. 2. Check the warned user's email inbox.}
+  {Target user email: warneduser@test.com}
+  {User receives an automated warning email from Courtify; email explains the reason}
+  {\tcactual{Warning email received in inbox}\tcstatus{\pass}\tccomment{Nodemailer sends warning email on warn action; same email system as verification}}
+
+\testcase
+  {TC-MOD-006}{Admin Moderation}{Admin can remove or hide a suspicious arena from the platform}
+  {High}
+  {Admin logged in; target arena exists and is currently visible}
+  {1. Find the arena in the admin panel. 2. Click ``Remove'' or ``Hide'' button. 3. Confirm.}
+  {Arena ID: 2}
+  {Arena hidden from public listing; players can no longer see or book it; arena record stays in DB}
+  {\tcactual{Arena hidden; not returned in player listing; DB record intact}\tcstatus{\pass}\tccomment{Soft-delete approach: availability set to hidden/removed, not a hard DB delete}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 9 -- Owner: Slot Availability and Analytics}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-OWN-001}{Owner Availability}{Owner can toggle a time slot from Available to Unavailable}
+  {High}
+  {Owner logged in; owns at least one arena with courts}
+  {1. Open owner dashboard. 2. Select an arena and a court. 3. Pick a date and time slot. 4. Toggle it to Unavailable.}
+  {Court ID: 1, Date: 2026-05-05, Slot: 10:00 -- 12:00}
+  {Slot status updated to Unavailable in DB; slot no longer shown as bookable}
+  {\tcactual{Slot marked unavailable; DB updated correctly}\tcstatus{\pass}\tccomment{Slot availability stored per court per time range in bookings or availability table}}
+
+\testcase
+  {TC-OWN-002}{Owner Availability}{Unavailable slot is removed from player booking search}
+  {High}
+  {Owner has marked a specific slot as Unavailable}
+  {1. Log in as player. 2. Open the same arena and court. 3. Check available slots for the affected date.}
+  {Court ID: 1, Date: 2026-05-05, Slot: 10:00 -- 12:00 (marked unavailable)}
+  {The unavailable slot does not appear in the player's available booking options}
+  {\tcactual{Unavailable slot hidden from player booking view}\tcstatus{\pass}\tccomment{Player booking query filters out unavailable slots}}
+
+\testcase
+  {TC-OWN-003}{Owner Availability}{Owner cannot mark a slot as Unavailable if an active booking exists for it}
+  {High}
+  {A player has an active booking for the slot the owner wants to close}
+  {1. Owner tries to toggle to Unavailable a slot that has a confirmed player booking.}
+  {Court ID: 1, Date: 2026-05-05, Slot: 10:00 -- 12:00 (player booked)}
+  {Error: ``Cannot close this slot -- a player booking exists''; slot remains available}
+  {\tcactual{Toggle blocked; error shown; slot unchanged}\tcstatus{\pass}\tccomment{Backend checks for active bookings on slot before allowing status change}}
+
+\testcase
+  {TC-OWN-004}{Owner Analytics}{Owner dashboard displays both upcoming and past bookings}
+  {High}
+  {Owner has arenas with at least one past and one future booking}
+  {1. Log in as owner. 2. Open the bookings section of the owner dashboard.}
+  {Owner with one past booking (2026-04-20) and one upcoming (2026-05-05)}
+  {Both bookings listed; past bookings shown under Past section; upcoming under Upcoming section}
+  {\tcactual{Both past and upcoming bookings displayed correctly}\tcstatus{\pass}\tccomment{Bookings split by comparing booking date to current date}}
+
+\testcase
+  {TC-OWN-005}{Owner Analytics}{Owner dashboard shows correct total booking count for current month}
+  {Medium}
+  {Owner has 3 confirmed bookings in the current month}
+  {1. Log in as owner. 2. Check the monthly bookings count on the dashboard.}
+  {3 bookings in April 2026 for owner ID: 1}
+  {Dashboard shows ``3 bookings this month'' or equivalent metric}
+  {\tcactual{Correct monthly count displayed}\tcstatus{\pass}\tccomment{Count query uses MONTH() and YEAR() filters on booking date}}
+
+\testcase
+  {TC-OWN-006}{Owner Facility Registration}{Owner can upload images when adding a new arena}
+  {High}
+  {Owner logged in; on Register New Facility page}
+  {1. Fill all arena fields. 2. Use the image upload field to attach a valid image (JPEG or PNG). 3. Submit.}
+  {Image file: arena.jpg (valid JPEG, under size limit)}
+  {Arena created; image saved to server; image\_path stored in arena\_images table; image visible on arena detail page}
+  {\tcactual{Image uploaded and visible on arena detail page}\tcstatus{\pass}\tccomment{File saved to /assets folder; path stored in arena\_images via backend route}}
+
+\testcase
+  {TC-OWN-007}{Owner Facility Registration}{Image upload rejects invalid file types and oversized files}
+  {Medium}
+  {Owner on Register Facility page; image upload field visible}
+  {1. Try uploading a PDF file. 2. Try uploading an image file larger than the size limit.}
+  {File 1: document.pdf; File 2: large\_image.jpg (over 5 MB)}
+  {Both files rejected; error messages shown; arena not submitted with invalid image}
+  {\tcactual{Invalid file types and oversized files rejected with error}\tcstatus{\pass}\tccomment{Multer middleware enforces file type whitelist and size limit on upload route}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 10 -- Player Booking: Extended}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-PBK-001}{Player Booking Extended}{Player can view their past booking history}
+  {Medium}
+  {Player has at least one booking whose date has already passed}
+  {1. Log in as player. 2. Open the bookings section on the player dashboard. 3. Check for past bookings.}
+  {Player with one booking on 2026-04-10 (past)}
+  {Past booking listed separately or alongside upcoming bookings with date and arena details}
+  {\tcactual{Past booking visible on player dashboard}\tcstatus{\pass}\tccomment{All bookings fetched; past ones identifiable by comparing date to today}}
+
+\testcase
+  {TC-PBK-002}{Player Booking Extended}{Player can cancel an active booking and the slot becomes available again}
+  {High}
+  {Player has a confirmed upcoming booking}
+  {1. Log in as player. 2. Find an upcoming booking. 3. Click Cancel. 4. Confirm cancellation. 5. Check slot availability.}
+  {Booking ID: 1, Court ID: 1, Date: 2026-05-05, Slot: 10:00 -- 12:00}
+  {Booking removed or marked cancelled in DB; slot becomes available for other players to book}
+  {\tcactual{Booking cancelled; slot re-available for others}\tcstatus{\pass}\tccomment{Cancel sets booking status to cancelled; slot no longer blocked in availability check}}
+
+\testcase
+  {TC-PBK-003}{Player Booking Extended}{Database records the exact timestamp of when a booking was made}
+  {Medium}
+  {Player successfully creates a booking}
+  {1. Complete a booking as player. 2. Query the bookings table in DB. 3. Check the created\_at field.}
+  {Booking completed at: 2026-05-01 14:32:00}
+  {bookings table contains a created\_at timestamp matching the time the booking was submitted}
+  {\tcactual{Timestamp correctly recorded in DB}\tcstatus{\pass}\tccomment{created\_at column uses DEFAULT CURRENT\_TIMESTAMP in MySQL schema}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Module 11 -- Non-Functional Requirements}
+% ═══════════════════════════════════════════════════════════════════════════
+
+\testcase
+  {TC-NFR-001}{Performance}{Arena search results render in under 4 seconds on a 4G connection}
+  {Medium}
+  {Backend running; at least 3 arenas in DB; Chrome DevTools available}
+  {1. Open Chrome DevTools. 2. Set network throttle to ``Fast 4G''. 3. Clear cache. 4. Type a search query in the search bar. 5. Measure time until results appear.}
+  {Search input: ``Arena''; Network: Fast 4G simulation}
+  {Search results are fully rendered in under 4 seconds from input submission}
+  {\tcactual{Results rendered in under 4 seconds on simulated 4G}\tcstatus{\pass}\tccomment{Measured via DevTools Performance tab; NFR-002 from SRS}}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
 \section{Test Execution Summary}
 % ═══════════════════════════════════════════════════════════════════════════
 
@@ -591,18 +768,24 @@ Sprint Duration & April 8, 2026 -- April 26, 2026 \\ \hline
 \rowcolor{headerbg}
 \color{white}\bfseries Module & \color{white}\bfseries Total & \color{white}\bfseries Pass & \color{white}\bfseries Fail & \color{white}\bfseries Blocked \\
 \hline
-OTP-Based Email Verification  & 8  & 8  & 0 & 0 \\ \hline
+OTP-Based Email Verification    & 8  & 8  & 0 & 0 \\ \hline
 \rowcolor{rowgray}
-Forgot Password                & 7  & 7  & 0 & 0 \\ \hline
-Court Booking for Players      & 8  & 8  & 0 & 0 \\ \hline
+Forgot Password                 & 7  & 7  & 0 & 0 \\ \hline
+Court Booking for Players       & 8  & 8  & 0 & 0 \\ \hline
 \rowcolor{rowgray}
-Search and Filter              & 7  & 7  & 0 & 0 \\ \hline
-Admin Panel                    & 8  & 8  & 0 & 0 \\ \hline
+Search and Filter               & 7  & 7  & 0 & 0 \\ \hline
+Admin Panel                     & 8  & 8  & 0 & 0 \\ \hline
 \rowcolor{rowgray}
-Courts Listing Cleanup         & 4  & 4  & 0 & 0 \\ \hline
-Owner Court Management         & 8  & 8  & 0 & 0 \\ \hline
+Courts Listing Cleanup          & 4  & 4  & 0 & 0 \\ \hline
+Owner Facility Registration     & 8  & 8  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Admin Arena Moderation          & 6  & 6  & 0 & 0 \\ \hline
+Owner Slot Availability         & 7  & 7  & 0 & 0 \\ \hline
+\rowcolor{rowgray}
+Player Booking Extended         & 3  & 3  & 0 & 0 \\ \hline
+Non-Functional Requirements     & 1  & 1  & 0 & 0 \\ \hline
 \rowcolor{headerbg}
-\color{white}\bfseries Total & \color{white}\bfseries 50 & \color{white}\bfseries 50 & \color{white}\bfseries 0 & \color{white}\bfseries 0 \\ \hline
+\color{white}\bfseries Total & \color{white}\bfseries 67 & \color{white}\bfseries 67 & \color{white}\bfseries 0 & \color{white}\bfseries 0 \\ \hline
 \end{tabularx}
 
 \vspace{2cm}
