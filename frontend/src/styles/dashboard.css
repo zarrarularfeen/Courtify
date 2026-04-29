@@ -154,10 +154,8 @@
 
 .hero-right img {
   width: 100%;
-  max-width: 450px;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
-  transform: perspective(1000px) rotateY(-10deg);
-  transition: transform 0.5s ease;
+  max-width: 420px;
+  border-radius: 12px;
 }
 
 .owner-cta-banner {

@@ -1,8 +1,6 @@
 /* ================================
    Global Color Palette (Your Colors)
 ================================ */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-
 :root {
   --ash-gray: #cad2c5ff;
   --cambridge-blue: #84a98cff;
@@ -37,7 +35,7 @@
 
 html, body {
   height: 100%;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: semibold;
   background: var(--bg-color);
   color: var(--text-color);

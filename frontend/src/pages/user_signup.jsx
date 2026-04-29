@@ -32,6 +32,10 @@ function UserSignup({ close, showLogin }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userType , setUserType] = useState("player"); // owner or player
   const [loading, setLoading] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpError, setOtpError] = useState("");
+  const [otpLoading, setOtpLoading] = useState(false);
 
   const [phoneError, setPhoneError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -93,8 +97,10 @@ function UserSignup({ close, showLogin }) {
 
       if (response.ok) {
         console.log("Signup successful:", data);
-        close();
-        showLogin();
+        // Show OTP input so user can verify email
+        setShowOtp(true);
+        setOtpError("");
+        // keep modal open for OTP entry
 
         if (data.userType == "owner") {
           // redirect or show owner options on navbar
@@ -108,6 +114,54 @@ function UserSignup({ close, showLogin }) {
       setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const verifyOtp = async (e) => {
+    e && e.preventDefault();
+    setOtpError("");
+    if (!/^[0-9]{6}$/.test(otp)) {
+      setOtpError("Enter a 6-digit OTP");
+      return;
+    }
+
+    setOtpLoading(true);
+    try {
+      const resp = await fetch("http://localhost:5000/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp, userType })
+      });
+
+      const body = await resp.json();
+      if (resp.ok) {
+        // verification successful
+        setShowOtp(false);
+        close();
+        showLogin();
+      } else {
+        setOtpError(body.error || "OTP verification failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setOtpError("An error occurred. Please try again.");
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  const resendOtp = async () => {
+    try {
+      const resp = await fetch("http://localhost:5000/auth/resend-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, userType })
+      });
+      const body = await resp.json();
+      if (!resp.ok) setOtpError(body.error || "Could not resend OTP");
+    } catch (err) {
+      console.error(err);
+      setOtpError("Could not resend OTP");
     }
   };
 
@@ -193,6 +247,29 @@ function UserSignup({ close, showLogin }) {
             {loading ? "Creating Account..." : "Sign Up"}
           </button>
         </form>
+
+        {showOtp && (
+          <div className="otp-section">
+            <p>Enter the 6-digit OTP sent to your email{email ? ` (${email})` : ''}.</p>
+            <form onSubmit={verifyOtp} className="login-form">
+              <input
+                type="text"
+                value={otp}
+                placeholder="Enter 6-digit OTP"
+                onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, '').slice(0,6))}
+                required
+              />
+              {otpError && <p className="error">{otpError}</p>}
+
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button className="btn login-submit" type="submit" disabled={otpLoading}>
+                  {otpLoading ? "Verifying..." : "Verify OTP"}
+                </button>
+                <button type="button" className="btn" onClick={resendOtp}>Resend OTP</button>
+              </div>
+            </form>
+          </div>
+        )}
 
         {/* Login link */}
         <div className="signup-link">

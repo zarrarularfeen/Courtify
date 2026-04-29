@@ -2,41 +2,45 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Authcontext.jsx";
 import "../styles/userLogin.css";
-import ForgotPassword from "./ForgotPassword";
 
-function UserLogin({ close, showSignup }) {
+function UserLogin({ close,showSignup }) {
   const navigate = useNavigate();
+
   const { login: setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("player");
+  const [userType , setUserType] = useState("player");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showForgot, setShowForgot] = useState(false);
 
   const login = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
-    try {
+    try{
       const params = new URLSearchParams({ email, password, userType });
       const response = await fetch(`http://localhost:5000/auth/validate?${params}`, {
         method: "GET",
       });
 
       const data = await response.json();
-
+      console.log("Login response data:", data);
+      console.log("Login user type:", userType);
+      
       if (response.ok && data.authenticated) {
         setUser(data);
         close();
+
         if (data.userType === "owner") {
           navigate('/owner/dashboard');
         }
+
       } else {
         setError(data.error || "Login failed");
       }
     } catch (err) {
+      console.error(err)
       setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
@@ -48,16 +52,6 @@ function UserLogin({ close, showSignup }) {
     showSignup();
   };
 
-  // Show forgot password modal
-  if (showForgot) {
-    return (
-      <ForgotPassword
-        close={close}
-        showLogin={() => setShowForgot(false)}
-      />
-    );
-  }
-
   return (
     <div className="login-modal-container">
       <button className="close-btn" onClick={close}>×</button>
@@ -65,7 +59,7 @@ function UserLogin({ close, showSignup }) {
       <div className="login-left">
         <h1>Welcome to Courtify</h1>
         <p>
-          {userType === 'player'
+          {userType === 'player' 
             ? "Book sports venues instantly. Fast, simple, reliable."
             : "Manage your sports facilities efficiently. Grow your business."
           }
@@ -75,17 +69,21 @@ function UserLogin({ close, showSignup }) {
       <div className="login-right">
         <h2>Login to Courtify</h2>
 
+        {/* User Type Selector */}
         <div className="user-type-selector">
-          <button
+          <button 
             type="button"
             className={`type-btn ${userType === 'player' ? 'active' : ''}`}
             onClick={() => setUserType('player')}
-          >Player</button>
-          <button
+          >Player
+          </button>
+          
+          <button 
             type="button"
             className={`type-btn ${userType === 'owner' ? 'active' : ''}`}
             onClick={() => setUserType('owner')}
-          >Owner</button>
+          >Owner
+          </button>
         </div>
 
         <form onSubmit={login} className="login-form">
@@ -95,6 +93,7 @@ function UserLogin({ close, showSignup }) {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+
           <input
             type="password"
             placeholder="Password"
@@ -107,13 +106,8 @@ function UserLogin({ close, showSignup }) {
               <input type="checkbox" />
               Remember me
             </label>
-            <span
-              className="forgot"
-              style={{ cursor: 'pointer' }}
-              onClick={() => setShowForgot(true)}
-            >
-              Forgot password?
-            </span>
+
+            <span className="forgot" style={{cursor: "pointer"}} onClick={() => { close(); navigate('/forgot-password'); }}>Forgot password?</span>
           </div>
 
           {error && <p className="error">{error}</p>}
@@ -123,6 +117,7 @@ function UserLogin({ close, showSignup }) {
           </button>
         </form>
 
+        {/* Sign-up modal signal */}
         <div className="signup-link">
           <p>Don't have an account? <span onClick={handleSignupClick}>Sign up</span></p>
         </div>

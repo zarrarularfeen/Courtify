@@ -1,18 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React , { useState } from "react";
 import "./navbar.css";
 import { useAuth } from "../Authcontext";
+
 import logo from "../logo.png";
 
 const LogoutIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
+  <svg 
+    width="16" 
+    height="16" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
     strokeLinejoin="round"
   >
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -22,9 +23,23 @@ const LogoutIcon = () => (
 );
 
 export const Navbar = ({ onLoginClick, user }) => {
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const { isOwner, logout } = useAuth();
+  const { isPlayer, isOwner, logout } = useAuth();
+
+  const handleBookingsClick = () => {
+    if (!user) {
+      // If user is not logged in, show login modal
+      onLoginClick();
+    } else if (isOwner()) {
+      navigate("/owner/dashboard");
+    } else if (!isPlayer()) {
+      alert("Only players can access bookings page");
+    } else {
+      navigate("/playerBook");
+    }
+  };
 
   const handleLogout = (e) => {
     e.stopPropagation();
@@ -51,9 +66,15 @@ export const Navbar = ({ onLoginClick, user }) => {
       {/* Right section */}
       <ul className="nav-right">
         <li onClick={() => navigate(isOwner() ? "/owner/dashboard" : "/")}>Home</li>
-        {isOwner() && (
-          <li onClick={() => navigate("/owner/register-facility")}>Add Facility</li>
+        {isOwner() ? (
+          <>
+             <li onClick={() => navigate("/owner/facilities")}>My Facilities</li>
+             <li onClick={() => navigate("/owner/register-facility")}>Add Facility</li>
+          </>
+        ) : (
+          <li onClick={handleBookingsClick}>Bookings</li>
         )}
+        <li onClick={() => navigate("/about")}>About</li>
         <div className="separator">|</div>
         {user ? (
           <li className="user-info" onClick={toggleDropdown}>
