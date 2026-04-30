@@ -1,7 +1,8 @@
+/* Courtify Dashboard & Layout Styles */
 .app-shell {
   display: flex;
   min-height: 100vh;
-  background: #f4f7fb;
+  background: var(--bg-color);
 }
 
 .topbar {
@@ -13,9 +14,9 @@
   justify-content: space-between;
   gap: 20px;
   padding: 18px 24px;
-  background: #1f2937;
+  background: linear-gradient(135deg, #1b4332, #2d6a4f);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  box-shadow: var(--shadow);
 }
 
 .topbar .brand {
@@ -148,7 +149,7 @@
 
 .page-heading p {
   color: #475569;
-  margin-bottom: 16px;
+}
 }
 
 .page-heading {
